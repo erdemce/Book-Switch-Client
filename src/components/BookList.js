@@ -4,6 +4,8 @@ import { CardDeck, Card } from 'react-bootstrap'
 export default class BookList extends Component {
     render() {
         return (
+            <React.Fragment>
+            <h2>All Books in {this.props.city}</h2>
             <CardDeck>
                 <Card>
                     <Card.Img variant="top" src="holder.js/100px160" />
@@ -46,6 +48,7 @@ export default class BookList extends Component {
                     </Card.Footer>
                 </Card>
                 </CardDeck>
+                </React.Fragment>
         )
     }
 }

@@ -67,7 +67,7 @@ export default class SignUpForm extends Component {
                     <Form.Control as="select" placeholder="Choose your country" />
                     {/* <Select options={options} value={value} onChange={changeHandler} /> */}
                     </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" size="lg" block type="submit">
                     Submit
                 </Button>
                 </Form> 
