@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
 import { Form, Button } from "react-bootstrap";
 import Select from 'react-select-country-list'
 
@@ -32,20 +32,17 @@ export default class SignUpForm extends Component {
                     <Form.Control  name="password"  type="password" placeholder="Password" />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Country</Form.Label>
-                    <Form.Control as="select"  name="country">
+                    <Form.Label>City</Form.Label>
+                    <Form.Control as="select"  name="city">
                          <option>Choose your country</option>
-                         <option value="Germany">Germany</option>
-                         <option value="France">France</option>
+                         <option value="Germany">Berlin</option>
+                         <option value="France">Amsterdam</option>
+                         <option value="France">Paris</option>
                           </Form.Control >
                    
                     {/* <Select options={options} value={value} onChange={changeHandler} /> */}
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>City</Form.Label>
-                    <Form.Control as="select"  name="city" placeholder="Choose your city" />
-                    {/* <Select options={options} value={value} onChange={changeHandler} /> */}
-                    </Form.Group>
+            
                 <Button variant="primary" size="lg" block type="submit">
                     Submit
                 </Button>

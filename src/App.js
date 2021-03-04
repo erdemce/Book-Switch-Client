@@ -1,5 +1,5 @@
-import React {Component} from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { Component } from 'react'
+import { Switch, Route, withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import SignUpForm from "./components/SignUpForm";
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -9,10 +9,9 @@ import WelcomePage from "./components/WelcomePage";
 import BookDetails from './components/BookDetails'
 import Profile from './components/Profile'
 import FooterBar from './components/FooterBar'
-import { Component } from "react";
 import axios from "axios"
 
-export default class App extends Component {
+class App extends Component {
 
   state={
     loggedInUser:null,
@@ -31,7 +30,7 @@ export default class App extends Component {
     const password=event.target.password.value
     const city=event.target.city.value
     let user = {username, name, lastName, email, password, city}
-    axios.post("local.host:5005/api/signup", user, {withCredentials: true})
+    axios.post(" http://localhost:5005/api/auth/signup", user, {withCredentials: true})
     .then((response)=> {
       this.setState({
         loggedInUser: response.data,
@@ -46,7 +45,7 @@ export default class App extends Component {
     })
   }
 
-  
+
   render() {
     return (
        <div className="App">
@@ -74,6 +73,8 @@ export default class App extends Component {
   }
 }
 
+export default withRouter(App)
 
-export default App;
+
+
 
