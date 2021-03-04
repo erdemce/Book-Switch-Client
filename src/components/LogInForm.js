@@ -8,16 +8,15 @@ export default class LogInForm extends Component {
           
         return (
                 <div>
-                <Form>
+                <Form onSubmit={this.props.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                    <Form.Control name="email" required type="email" placeholder="Enter email" />
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control name="password" required  type="password" placeholder="Password" />
                 </Form.Group>
-                <Form.Group>
                 <Button variant="primary" size="lg" block type="submit">
                     Submit
                 </Button>
