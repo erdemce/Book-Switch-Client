@@ -49,7 +49,7 @@ class App extends Component {
   render() {
     return (
        <div className="App">
-      <NavBar/>
+      <NavBar user={this.state.loggedInUser}/>
       <WelcomePage/>
       <Switch>
       <Route exact path="/" component={BookList} />
