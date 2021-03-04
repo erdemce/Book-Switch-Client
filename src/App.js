@@ -19,7 +19,7 @@ class App extends Component {
     books:[],
     selectedBook:null,
     filteredTerm:null,
-    isNewUser:true
+    isNewUser:false
   }
 
   componentDidMount(){
