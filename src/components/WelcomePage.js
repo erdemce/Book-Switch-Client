@@ -1,12 +1,12 @@
-import { Button } from 'bootstrap'
+
 import React, { Component } from 'react'
-import Card from 'react-bootstrap/Card'
+import {Card, Button} from 'react-bootstrap'
 
 export default class WelcomePage extends Component {
     render() {
         return (
             <Card className="bg-dark text-white">
-                <Card.Img src="../assets/welcomepage.jpg" alt="Card image" />
+                <Card.Img style={{width: "200px"}} src="assets/welcomepage.jpg" alt="Card image" />
                 <Card.ImgOverlay>
                     <Card.Title>Welcome to Book Switch!</Card.Title>
                     <Card.Text>
@@ -16,6 +16,7 @@ export default class WelcomePage extends Component {
                     <Card.Text>Last updated 3 mins ago</Card.Text>
                 </Card.ImgOverlay>
                 <Button>Start by Editing your Profile</Button>
+                <br></br>
                 <Button>Go back to Home page.</Button>
             </Card>
         )
