@@ -25,7 +25,8 @@ class App extends Component {
   componentDidMount(){
     axios.get("http://localhost:5005/api/book")
       .then((response) => {
-        this.setState({ book: response.data})
+
+        this.setState({ books: response.data})
       })
       .catch(() => {
         console.log('Fetching failed')
