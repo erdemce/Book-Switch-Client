@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import {Navbar, Nav} from 'react-bootstrap'
 
 
-export default class Header extends Component {
+class Header extends Component {
     render() {
         return (
             <div>
@@ -27,3 +27,5 @@ export default class Header extends Component {
         )
     }
 }
+
+export default Header
