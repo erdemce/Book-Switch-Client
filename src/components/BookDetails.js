@@ -1,11 +1,36 @@
 import React, { Component } from 'react'
 import Card from 'react-bootstrap/Card'
+import axios from "axios"
+
+
+
 
 export default class BookDetails extends Component {
+
+
+state={
+    book:""
+}
+
+
+componentDidMount(){
+
+    let bookId = this.props.match.params.bookId
+    axios.get(`http://localhost:5005/api/book/get/${bookId}`)
+      .then((response) => {
+          
+
+        this.setState({ book: response.data},()=>{console.log(this.state.book)})
+      })
+      .catch(() => {
+        console.log('Fetching failed')
+      })
+
+}
     render() {
         return (
             <div>
-                <h2>{this.props.title}</h2>
+                <h2>{this.state.book.title}</h2>
                 <Card>
                     <Card.Img variant="top" src="holder.js/100px160" />
                     <Card.Body>

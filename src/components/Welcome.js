@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 
 
 function  WelcomePage(props) {
+ 
     return (
+     
       <Modal
         {...props}
         size="lg"
@@ -25,19 +27,19 @@ function  WelcomePage(props) {
           </p>
         </Modal.Body>
         <Modal.Footer>
-        <Button><Link to="/profile">Start by Editing your Profile</Link></Button>
+          <Button onClick={props.handleFirstEdit}>Start by Editing your Profile</Button>
           <Button onClick={props.onHide}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
   }
   
-  function Welcome() {
+  function Welcome(props) {
     const [modalShow, setModalShow] = React.useState(true);
   
     return (
       <>
-        <WelcomePage    
+        <WelcomePage   {...props} 
           show={modalShow}
           onHide={() => setModalShow(false)}
         />

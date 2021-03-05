@@ -1,27 +1,36 @@
 import React, { Component } from 'react'
-import {Card, Button, Modal} from 'react-bootstrap'
+import {Card, Button} from 'react-bootstrap'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import EditProfile from "./EditProfile"
 
 
 export default class Profile extends Component {
 
     state = {
-        user: {}, 
+        user: {username: "ArSmith",
+        name: "Arthur",
+        lastName: "Simith",
+        email: "arthur@berlin.com",
+        password: "guantanamera",
+        location:{city:"berlin"} , 
         modalShow: false
       }
+    }
     
-    componentDidMount(){
-        axios.get(`http://localhost:5005/api/auth/user`)
-          .then((response) => {
-            this.setState({
-              user: response.data
-            })
-          })
-          .catch(() => {
-            console.log('Detail fetch failed')
-          })
-      }
+    // componentDidMount(){
+      
+        
+    //     // axios.get(`http://localhost:5005/api/auth/user`)
+    //     //   .then((response) => {
+    //     //     this.setState({
+    //     //       user: response.data
+    //     //     })
+    //     //   })
+    //     //   .catch(() => {
+    //     //     console.log('Detail fetch failed')
+    //     //   })
+    //   }
 
 
     handleProfileChange = (event) => {
@@ -43,21 +52,23 @@ export default class Profile extends Component {
         const {user, modalShow} = this.state
         return (
             <div>
-                <h2>Hello {user.username}! Welcome to your profile</h2>
+                <h2>Hello {user.name}! Welcome to your profile</h2>
                 <Card>
                     <Card.Img variant="top" src={user.photo} />
                     <Card.Body>
-                    <Card.Title>Book 1</Card.Title>
+                    <Card.Title>Your details</Card.Title>
                     <Card.Text>
                         This is a wider card with supporting text below as a natural lead-in to
                         additional content. This content is a little bit longer.
                     </Card.Text>
                     <table>
+                        <tbody>
                         <tr><th>Username:</th><td>{user.username}</td></tr>
                         <tr><th>Name:</th><td>{user.name}</td></tr>
                         <tr><th>Last Name:</th><td>{user.lastName}</td></tr>
                         <tr><th>City:</th><td>{user.city}</td></tr>
                         <tr><th>Email:</th><td>{user.email}</td></tr>
+                        </tbody>
                     </table>
                     </Card.Body>
                     <Card.Footer>
