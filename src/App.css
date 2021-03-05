@@ -3,66 +3,38 @@
 .App {
   text-align: center;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+button a:hover,
+button a:visited,
+button a:active,
+button a:link {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+.categories {
+  margin: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.searchbar,
+.row-cols-md-3 {
+  margin: 1em;
+}
+
+.btn-primary {
+  background-color: #0E53A7;
+  font-family: 'Fredoka One';
+}
+
+.categories button {
+  margin: 1em;
+  width: 12em;
+}
+
+.row a {
+  text-decoration: none;
 }
 
 
-body {
-    padding: 50px;
-    background: linear-gradient(0deg, #fff, 50%, #DEEEFE);
-    font-family: 'Rubik', sans-serif;
-    background: #455A64;
-    height: 100 !important
-}
-
-.container-fluid {
-    overflow: hidden;
-    margin-top: 250px;
-    background: #262626;
-    color: #627482 !important;
-    margin-bottom: 0;
-    padding-bottom: 0
-}
-
-small {
-    font-size: calc(12px + (15 - 12) * ((100vw - 360px) / (1600 - 360))) !important
-}
-
-.bold-text {
-    color: #989c9e !important
-}
-
-.mt-55 {
-    margin-top: calc(50px + (60 - 50) * ((100vw - 360px) / (1600 - 360))) !important
-}
-
-h3 {
-    font-size: calc(34px + (40 - 34) * ((100vw - 360px) / (1600 - 360))) !important
-}
-
-.social {
-    font-size: 21px !important
-}
-
-.rights {
-    font-size: calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important
-}

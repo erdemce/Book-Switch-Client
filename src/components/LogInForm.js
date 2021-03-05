@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 export default class LogInForm extends Component {
-     
+
     render() {
           
         return (
@@ -20,6 +20,7 @@ export default class LogInForm extends Component {
                 <Button variant="primary" size="lg" block type="submit">
                     Submit
                 </Button>
+               
                 </Form> 
                 </div>
            

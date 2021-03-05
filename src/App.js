@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Switch, Route, withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import SignUpForm from "./components/SignUpForm";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'react-bootstrap'
+
 import BookList from "./components/BookList";
 import Welcome from "./components/Welcome";
 import BookDetails from './components/BookDetails'
@@ -12,11 +11,13 @@ import FooterBar from './components/FooterBar'
 import LogInForm from "./components/LogInForm"
 import axios from "axios"
 
+
 class App extends Component {
 
   state={
-    loggedInUser:null,
+  loggedInUser:null,
     books:[],
+    filtered:[],
     selectedBook:null,
     filteredTerm:null,
     isNewUser:false
@@ -26,7 +27,7 @@ class App extends Component {
     axios.get("http://localhost:5005/api/book")
       .then((response) => {
 
-        this.setState({ books: response.data})
+        this.setState({ books: response.data, filtered:response.data})
       })
       .catch(() => {
         console.log('Fetching failed')
@@ -45,6 +46,9 @@ class App extends Component {
     }  
   }
 
+  
+
+
   handleSignUp =(event) => {
     event.preventDefault()
     const username=event.target.username.value
@@ -52,8 +56,8 @@ class App extends Component {
     const lastName=event.target.lastName.value
     const email=event.target.email.value
     const password=event.target.password.value
-    const city=event.target.city.value
-    let user = {username, name, lastName, email, password, city}
+    const location=event.target.location.value
+    let user = {username, name, lastName, email, password, location}
     axios.post("http://localhost:5005/api/auth/signup", user, {withCredentials: true})
     .then((response)=> {
       this.setState({
@@ -61,7 +65,7 @@ class App extends Component {
         isNewUser:true
 
       }, ()=>{
-        this.props.history.push("/home")
+        this.props.history.push("/")
       })
     })
     .catch((err)=> {
@@ -81,7 +85,7 @@ class App extends Component {
           this.setState({
             loggedInUser: response.data
           }, () => {
-            this.props.history.push('/home')
+            this.props.history.push('/')
           })
       })
       .catch((err) => {
@@ -96,9 +100,16 @@ class App extends Component {
         this.setState({
           loggedInUser: null
         }, () => {
-          this.props.history.push('/home')
+          this.props.history.push('/')
         })
     })
+  }
+
+  handleSwitchMode=(mode)=>{
+    this.setState({
+      filtered:(mode==="all")?this.state.books:this.state.books.filter(book=>book.switchMode===mode)
+    })
+
   }
 
 
@@ -109,8 +120,8 @@ class App extends Component {
       { (this.state.isNewUser) && ( <Welcome/>)}
       <Switch>
 
-      <Route path ="/home" render={(routeProps)=> {
-          return <BookList books={this.state.books} {...routeProps}/>
+      <Route exact path ="/" render={(routeProps)=> {
+          return <BookList forMode={this.handleSwitchMode} books={this.state.filtered} {...routeProps}/>
         }}/>
         <Route path ="/signup" render={(routeProps)=> {
           return <SignUpForm handleSubmit={this.handleSignUp} {...routeProps}/>
@@ -121,6 +132,7 @@ class App extends Component {
         <Route path="/book/:bookId" render={(routeProps)=> {
           return <BookDetails {...routeProps}/>
         }}/>
+
         <Route path="/profile" component={Profile}/>
       
       </Switch>
