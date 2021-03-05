@@ -38,7 +38,7 @@ export default class SignUpForm extends Component {
                          <option value="Germany">Berlin</option>
                          <option value="France">Amsterdam</option>
                          <option value="France">Paris</option>
-                          </Form.Control >
+                    </Form.Control >
                    
                     {/* <Select options={options} value={value} onChange={changeHandler} /> */}
                 </Form.Group>
