@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card, Button } from "react-bootstrap";
 import {Link} from 'react-router-dom'
+import BookCard from "./BookCard";
 
 export default class BookList extends Component {
   render() {
@@ -41,27 +42,10 @@ export default class BookList extends Component {
           </form>
         </section>
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {this.props.books.map((book, index) => {
-            let link="/book/"+book._id
+          {this.props.books.map(book => {
+            
             return (
-                <Link to={link} key={index}>
-              <Card>
-                <Card.Img
-                  style={{ width: "120px", margin:"0 auto"}}
-                  variant="top"
-                  src={book.photo}
-                />
-                <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <Card.Title>{book.author}</Card.Title>
-
-                  <Card.Text>{book.description}</Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                  <small classNameName="text-muted">{book.owner.city}</small>
-                </Card.Footer>
-              </Card>
-              </Link>
+              <BookCard book={book}/>
             );
           })}
         </div>
