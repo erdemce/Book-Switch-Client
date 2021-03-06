@@ -9,10 +9,11 @@ import Profile from "./components/Profile";
 import FooterBar from "./components/FooterBar";
 import LogInForm from "./components/LogInForm";
 import axios from "axios";
+import MessageList from "./components/MessageList";
 
 class App extends Component {
   state = {
-    loggedInUser: null,
+    loggedInUser: "",
     isNewUser: true,
   };
 
@@ -109,10 +110,9 @@ class App extends Component {
     
 
   handleFirstEdit = (event) => {
-    console.log("hello");
-    this.setState({ isNewUser: false }, () => {
-      this.props.history.push("/profile");
-    });
+    // this.setState({ isNewUser: false }, () => {
+    //   this.props.history.push("/profile");
+    // });
   };
 
   render() {
@@ -134,6 +134,16 @@ class App extends Component {
             render={(routeProps) => {
               return (
                 <BookList
+                  {...routeProps}
+                />
+              );
+            }}
+          />
+          <Route
+            path="/messages"
+            render={(routeProps) => {
+              return (
+                <MessageList
                   {...routeProps}
                 />
               );
