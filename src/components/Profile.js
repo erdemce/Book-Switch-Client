@@ -66,7 +66,7 @@ export default class Profile extends Component {
                         <tr><th>Username:</th><td>{user.username}</td></tr>
                         <tr><th>Name:</th><td>{user.name}</td></tr>
                         <tr><th>Last Name:</th><td>{user.lastName}</td></tr>
-                        <tr><th>City:</th><td>{user.city}</td></tr>
+                        <tr><th>City:</th><td>{user.location.city}</td></tr>
                         <tr><th>Email:</th><td>{user.email}</td></tr>
                         </tbody>
                     </table>

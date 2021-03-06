@@ -15,16 +15,16 @@ function  WelcomePage(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-          Welcome to Book Switch!
+          <h2>Welcome to Book Switch!</h2>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-        <Card.Img style={{width: "200px"}} src="assets/welcomepage.jpg" alt="Card image" />
+        <Modal.Body className="hor-ver-2">
+        <Card.Img style={{width: "250px"}} src="assets/welcomepage.jpg" alt="Card image" />
     
-          <p>
+          <div><p>
           You are now ready to switch books with other people in your community, creating a local book club which instead of buying the same book many times, will allow a book to be read by many others.  supporting text below as a natural lead-in to
                     additional content. This content is a little bit longer.
-          </p>
+          </p></div>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.handleFirstEdit}>Start by Editing your Profile</Button>

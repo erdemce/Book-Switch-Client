@@ -17,6 +17,7 @@ button a:link {
   text-align: center;
   display: flex;
   justify-content: center;
+  flex-wrap:wrap
 }
 
 .searchbar,
@@ -30,12 +31,54 @@ button a:link {
 }
 
 .categories button {
-  margin: 1em;
-  width: 12em;
+  margin: 0.5em;
+  width: 10em;
+}
+
+.body-width{
+  max-width: 800px;
+  margin: auto;
 }
 
 .row a {
   text-decoration: none;
 }
+.hor-ver-2{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  
+}
+
+.hor-ver-2 p{
+  max-width: 350px;
+  margin: 1em;
+}
+
+.modal-lg, .modal-xl {
+  max-width: 800px;
+}
+
+@media only screen and (max-width: 600px) { 
+
+  .modal-lg, .modal-xl {
+    max-width: 350px;
+}
+body{
+  margin:0
+}
+
+.categories button {
+  margin: 1em;
+  width: 6em;
+  font-size: small;
+}
+
+
+}
+
+
 
 
