@@ -1,24 +1,88 @@
 import React, { Component } from "react";
-import { Card, Button } from "react-bootstrap";
-import {Link} from 'react-router-dom'
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import BookCard from "./BookCard";
+import SearchBar from "./SearchBar";
+import axios from "axios";
 
 export default class BookList extends Component {
+  state = {
+    books: [],
+    filtered: [],
+    mode: "all",
+    searchText: "",
+  };
+
+  componentDidMount() {
+    axios
+      .get("http://localhost:5005/api/book")
+      .then((response) => {
+        this.setState({ books: response.data, filtered: response.data });
+      })
+      .catch(() => {
+        console.log("Fetching failed");
+      });
+  }
+
+  handleSwitchMode = (mode) => {
+    this.setState(
+      {
+        mode: mode,
+      },
+      this.updateFilter
+    );
+  };
+
+  handleSearch = (event) => {
+    let searchText = event.target.value.toLowerCase();
+    this.setState(
+      {
+        searchText: searchText,
+      },
+      this.updateFilter
+    );
+  };
+
+  updateFilter = () => {
+    const { searchText, mode, books } = this.state;
+    let filteredBooks = books.filter(
+      (book) =>
+        (book.title.toLowerCase().includes(searchText) ||
+          book.author.toLowerCase().includes(searchText)) &&
+        (mode === "all" || book.switchMode === mode)
+    );
+    this.setState({
+      filtered: filteredBooks,
+    });
+  };
   render() {
-      
+    const { filtered } = this.state;
+
     return (
       <React.Fragment>
         <section className="categories">
-        <Button onClick={()=>this.props.forMode("all")} className="btn btn-primary">
+          <Button
+            onClick={() => this.handleSwitchMode("all")}
+            className="btn btn-primary"
+          >
             All
           </Button>
-          <Button onClick={()=>this.props.forMode("switch")} className="btn btn-primary">
+          <Button
+            onClick={() => this.handleSwitchMode("switch")}
+            className="btn btn-primary"
+          >
             Switch
           </Button>
-          <Button onClick={()=>this.props.forMode("gift")} className="btn btn-primary">
+          <Button
+            onClick={() => this.handleSwitchMode("gift")}
+            className="btn btn-primary"
+          >
             Gift
           </Button>
-          <Button onClick={()=>this.props.forMode("temporary-switch")} className="btn btn-primary">
+          <Button
+            onClick={() => this.handleSwitchMode("temporary-switch")}
+            className="btn btn-primary"
+          >
             Temporary Switch
           </Button>
 
@@ -27,26 +91,11 @@ export default class BookList extends Component {
           </Button>
         </section>
 
-        <section className="searchbar">
-          <form className="d-flex" action="/home" method="GET">
-            <input
-              name="searchedToy"
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            ></input>
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </section>
+        <SearchBar forSearch={this.handleSearch} />
+
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {this.props.books.map(book => {
-            
-            return (
-              <BookCard book={book}/>
-            );
+          {filtered.map((book) => {
+            return <BookCard book={book} />;
           })}
         </div>
       </React.Fragment>
