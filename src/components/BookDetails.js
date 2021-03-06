@@ -29,7 +29,7 @@ componentDidMount(){
 }
     render() {
         return (
-            <div>
+            <div className="body-width">
                 <h2>{this.state.book.title}</h2>
                 <Card>
                     <Card.Img variant="top" src="holder.js/100px160" />

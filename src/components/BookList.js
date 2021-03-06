@@ -47,7 +47,7 @@ export default class BookList extends Component {
                 <Link to={link} key={index}>
               <Card>
                 <Card.Img
-                  style={{ width: "100px", margin:"1em auto"}}
+                  style={{ width: "120px", margin:"0 auto"}}
                   variant="top"
                   src={book.photo}
                 />
