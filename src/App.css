@@ -5,13 +5,14 @@
 }
 
 button a:hover,
-button a:visited,
 button a:active,
 button a:link {
   color: white;
 }
 
-
+button a:visited {
+  color: #FFBE4A
+}
 .categories {
   margin: auto;
   text-align: center;
@@ -80,5 +81,8 @@ body{
 }
 
 
-
+footer {
+  background-color: #362B48;
+  color: #B0A8BA;
+}
 
