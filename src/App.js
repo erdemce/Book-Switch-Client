@@ -57,8 +57,10 @@ class App extends Component {
     const password=event.target.password.value
     const location=event.target.location.value
     let user = {username, name, lastName, email, password, location}
+    
     axios.post("http://localhost:5005/api/auth/signup", user, {withCredentials: true})
     .then((response)=> {
+      console.log(response.data.city)
       this.setState({
         loggedInUser: response.data,
         isNewUser:true

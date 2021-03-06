@@ -1,20 +1,28 @@
+import axios from "axios";
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-let locData = require("./cities");
 
 export default class SignUpForm extends Component {
   state = {
-    cities:locData.sort((loc1,loc2)=>(loc1.city>loc2.city)?1:-1)
+    locations:[]
   };
+
+  componentDidMount(){
+    axios.get("http://localhost:5005/api/location")
+      .then((response) => {
+
+        this.setState({ locations: response.data})
+      })
+  }
 
 
 
   render() {
     
-    const { cities} = this.state;
+    const { locations} = this.state;
 
     return (
-      <Form onSubmit={this.props.handleSubmit}>
+      <Form className="body-width"onSubmit={this.props.handleSubmit}>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -78,9 +86,9 @@ export default class SignUpForm extends Component {
             placeholder="Select your city"
             name="location"
           >
-            {cities.map((loc, index) => {
+            {locations.map((loc, index) => {
               return (
-                <option key={index} value={loc}>
+                <option key={index} value={loc._id}>
                   {loc.city}
                 </option>
               );
