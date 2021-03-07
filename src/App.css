@@ -121,3 +121,23 @@ h3 {
   font-family: 'Fredoka One', cursive;
   color: #B0A8BA
 }
+
+.div-right {
+  margin: 1em;
+  padding: 1em;
+  text-align: end;
+  background-color: rgb(168, 220, 233);
+}
+
+.message-form {
+  margin: 0.6em;
+  padding: 0.6em;
+  text-align: end
+}
+
+.div-left {
+  background-color: #eeeeee;
+  margin: 1em;
+  padding: 1em;
+  text-align: start;
+}

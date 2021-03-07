@@ -10,6 +10,7 @@ import FooterBar from "./components/FooterBar";
 import LogInForm from "./components/LogInForm";
 import axios from "axios";
 import MessageList from "./components/MessageList";
+import MessagesDetails from "./components/MessagesDetails";
 
 class App extends Component {
   state = {
@@ -140,6 +141,7 @@ class App extends Component {
             }}
           />
           <Route
+          exact
             path="/messages"
             render={(routeProps) => {
               return (
@@ -169,6 +171,12 @@ class App extends Component {
             path="/book/:bookId"
             render={(routeProps) => {
               return <BookDetails {...routeProps} />;
+            }}
+          />
+          <Route
+            path="/messages/:contactId"
+            render={(routeProps) => {
+              return <MessagesDetails {...routeProps} />;
             }}
           />
 
