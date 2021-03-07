@@ -7,11 +7,10 @@ export default class MessagesDetails extends Component {
         messages:[],
         book:"",
         contact:"",
-        loggedInUser:""
+        loggedInUser:"",
+        input:""
     }
     componentDidMount() {
-      console.log("merhaba")
-
         if (!this.state.loggedInUser) {
             axios
               .get("http://localhost:5005/api/auth/user", { withCredentials: true })
@@ -27,6 +26,7 @@ export default class MessagesDetails extends Component {
           .get(`http://localhost:5005/api/message/${contactId}`, { withCredentials: true })
           .then((response) => {
             let contact=response.data[0].between[0]._id==contactId ? response.data[0].between[0] : response.data[0].between[1]
+            
 
 
             this.setState({
@@ -41,13 +41,45 @@ export default class MessagesDetails extends Component {
           });
       }
 
+      handleSubmit=(event)=>{
+        event.preventDefault();
+        const text = event.target.text.value;
+        event.target.reset()
+        let message={
+          text,
+          between:[this.state.loggedInUser._id, this.state.contact._id],
+          bookRelated:this.state.book
+        }
+        axios
+      .post("http://localhost:5005/api/message", message, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        
+        this.setState(
+          {
+            messages: [ ...this.state.messages, response.data]
+          },
+          () => {
+            this.props.history.push(`/messages/${this.state.contact._id}`);
+          }
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  
+
+      }
+
       
 
 
     render() {
 
 
-      const{messages,book,contact}=this.state
+      const{messages,book,contact,input}=this.state
 
      
       
@@ -93,7 +125,7 @@ export default class MessagesDetails extends Component {
                      }
 
 
-                     <form className="message-form" method="POST" action="/answermessage/{{data.contactId}}/{{data.toyId}}">
+                     <form className="message-form" onSubmit={this.handleSubmit}>
                      <input name="text" required="true" type="text" className="form-control"></input>
                       <button type="submit" className="btn btn-primary btn-del">Send</button>
                    </form> 

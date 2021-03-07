@@ -47,7 +47,6 @@ class App extends Component {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data.city);
         this.setState(
           {
             loggedInUser: response.data,
