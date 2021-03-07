@@ -39,6 +39,7 @@ componentDidMount(){
                     <Modal.Body><img width="400px" src={book.photo} alt="bookphoto"/>
                         <p>{book.description}</p>
                         <p>{book.category}</p>
+                        <p>{book.language}</p>
                         <p>Switch mode: {book.switchMode}</p>
                         {(book.owner == !this.props.user) && (<p>Book owner: {book.owner}</p>)}
                     </Modal.Body>
