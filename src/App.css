@@ -35,6 +35,8 @@ button a:visited {
 .categories button {
   margin: 0.5em;
   width: 10em;
+  font-size: 1em;
+  font: 'Varela Round', sans-serif;
 }
 
 .body-width{
@@ -49,10 +51,10 @@ button a:visited {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  
+  align-items: center;
+  flex-wrap: wrap; 
 }
+
 
 .hor-ver-2 p{
   max-width: 350px;
@@ -71,7 +73,13 @@ button a:visited {
   .modal-lg, .modal-xl {
     max-width: 350px;
 }
+
+.hor-ver-2{
+
+  justify-content: space-between;
+
 }
+
 
 body{
   margin:0;
@@ -81,8 +89,8 @@ body{
 .categories button {
   margin: 1em;
   width: 7em;
-  font-size: 1em;
-  font: 'Varela Round', sans-serif;
+  font-size: 0.7em;
+}
 }
 
 footer {
