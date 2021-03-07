@@ -61,6 +61,10 @@ button a:link {
   max-width: 800px;
 }
 
+.small-image {
+  width: 200px;
+}
+
 @media only screen and (max-width: 600px) { 
 
   .modal-lg, .modal-xl {

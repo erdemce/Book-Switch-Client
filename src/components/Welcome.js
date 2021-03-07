@@ -39,7 +39,8 @@ function  WelcomePage(props) {
   
     return (
       <>
-        <WelcomePage   {...props} 
+        <WelcomePage   
+          handleFirstEdit={props.handleFirstEdit}
           show={modalShow}
           onHide={() => setModalShow(false)}
         />
