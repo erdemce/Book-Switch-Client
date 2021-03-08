@@ -19,11 +19,13 @@ function  WelcomePage(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="hor-ver-2">
-        <Card.Img style={{width: "250px"}} src="assets/welcomepage.jpg" alt="Card image" />
+        <Card.Img style={{width: "270px"}} src="assets/welcomepage.jpg" alt="Card image" />
     
           <div><p>
-          You are now ready to switch books with other people in your community, creating a local book club which instead of buying the same book many times, will allow a book to be read by many others.  supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.
+          Thanks for joining Book Switch! You are now ready to switch books with other people in your community, creating a local book club in which instead of buying the same book many times, will allow a book to be read by many others. 
+          Start by editing your profile where you can add books to your library so other people can request a switch. 
+          You'll also be able to browse the books available in your city or search by title or author by using the search bar. 
+          We also added a cool feature: random book. You can try it!
           </p></div>
         </Modal.Body>
         <Modal.Footer>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Modal} from 'react-bootstrap'
+import { Button, Modal, Form} from 'react-bootstrap'
 
 
 function EditProfile(props) {
@@ -16,21 +16,28 @@ function EditProfile(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <form onSubmit={props.handleProfileChange}>
-            <div class="form-group">
-                <label>Username</label>
-                    <input type="text" name="username"  value={props.user.username} ></input>
-                <label>Name</label>    
-                    <input type="text" name="name" value={props.user.name}></input>
-                <label>Last Name</label>    
-                    <input type="text" name="lastName" value={props.user.lastName}></input>
-                <label>City</label>    
-                    <input type="text" name="location" value={props.user.location.city}></input>
-                </div>
-          <Button onClick={props.onHide}>Close</Button>
-          <Button type="submit">Save Changes</Button>
-          </form>
+          <Form onSubmit={props.handleProfileChange}>
+                <Form.Group>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control name="username" required type="text" placeholder="Enter username" value={props.user.username} />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control name="name" type="text" placeholder="Enter your name"  value={props.user.name}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control name="lastName" type="text" placeholder="Enter your last name"  value={props.user.lastName} />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>City</Form.Label>
+                    <Form.Control name="location" required type="text" placeholder="Enter your city" value={props.user.location.city}/>
+                </Form.Group>
+                <Button variant="primary" size="lg" block type="submit">
+                  Save Changes
+                </Button>
+                <Button onClick={props.onHide}>Close</Button>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
          
@@ -39,4 +46,20 @@ function EditProfile(props) {
     );
   }
 
-export default EditProfile
+
+function ShowEditProfile(props) {
+  const [modalShow, setModalShow] = React.useState(true);
+
+  return (
+    <>
+      <EditProfile   
+        user={props.user}
+        handleFirstEdit={props.handleFirstEdit}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </>
+  );
+}
+
+export default ShowEditProfile
