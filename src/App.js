@@ -16,9 +16,13 @@ class App extends Component {
   state = {
     loggedInUser: "",
     isNewUser: true,
+    number:0
   };
 
   componentDidMount() {
+    this.setState({
+      number:5
+    })
 
     if (!this.state.loggedInUser) {
       axios
@@ -116,6 +120,7 @@ class App extends Component {
   };
 
   render() {
+
     return (
       <div className="App">
         <NavBar
@@ -169,7 +174,7 @@ class App extends Component {
           <Route
             path="/book/:bookId"
             render={(routeProps) => {
-              return <BookDetails {...routeProps} />;
+              return <BookDetails user={this.state.loggedInUser} {...routeProps} />;
             }}
           />
           <Route

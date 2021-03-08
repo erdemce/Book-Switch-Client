@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+import { Button,Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BookCard from "./BookCard";
 import SearchBar from "./SearchBar";
@@ -57,7 +57,18 @@ export default class BookList extends Component {
     });
   };
   render() {
-    const { filtered } = this.state;
+    const { books, filtered } = this.state;
+
+    if(books>0){
+      return <>
+      <Spinner animation="border" variant="primary" />
+      <Spinner animation="border" variant="secondary" />
+      <Spinner animation="border" variant="success" />
+      <Spinner animation="grow" variant="primary" />
+      <Spinner animation="grow" variant="secondary" />
+      <Spinner animation="grow" variant="success" />
+    </>
+    }
 
     return (
       <React.Fragment>

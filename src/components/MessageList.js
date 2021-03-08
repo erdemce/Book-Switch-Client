@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { Spinner} from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default class MessageList extends Component {
     state={
-        messages:[],
-        loggedInUser:""
+        messages:null,
+        loggedInUser:null
     }
     componentDidMount() {
 
@@ -32,8 +33,19 @@ export default class MessageList extends Component {
       
 
     render() {
+      const{messages,loggedInUser}=this.state
+      if(!messages||!loggedInUser){
+        return <>
+        <Spinner animation="border" variant="primary" />
+        <Spinner animation="border" variant="secondary" />
+        <Spinner animation="border" variant="success" />
+        <Spinner animation="grow" variant="primary" />
+        <Spinner animation="grow" variant="secondary" />
+        <Spinner animation="grow" variant="success" />
+      </>
+      }
 
-        const{messages,loggedInUser}=this.state
+       
         
         let contacts=[]  
         let messageGroups = []
@@ -56,6 +68,7 @@ export default class MessageList extends Component {
 
         });
         return (
+          
             <div>
                 {messageGroups.length ? (<h1>Your Messages</h1>) : (<h1>You have no Messages yet</h1>) }
                 <div className="list-group">

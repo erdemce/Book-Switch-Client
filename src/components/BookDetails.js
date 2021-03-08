@@ -1,54 +1,80 @@
 import React, { Component } from 'react'
-// import Button from 'react-bootstrap/Card'
+import { Button,Spinner} from 'react-bootstrap'
 import axios from "axios"
-import { Modal } from 'react-bootstrap'
- 
-
-
+import { Link } from 'react-router-dom'
 
 export default class BookDetails extends Component {
 
     state = {
-        book: ""
+        book: null,
     }
 
-
+compon
 componentDidMount(){
+
+
     let bookId = this.props.match.params.bookId
     axios.get(`http://localhost:5005/api/book/get/${bookId}`)
       .then((response) => {
-        this.setState({ book: response.data},()=>{console.log(this.state.book)})
+      
+        this.setState({ book: response.data})
       })
-      .catch(() => {
+      .catch((response) => {
+    
         console.log('Fetching failed')
       })
+      
 
 }
     render() {
-
         const {book} = this.state
+        const {user}=this.props
 
-        return (
-            <div className="body-width">
-                <Modal as="book" size="lg" aria-labelledby="contained-modal-title-vcenter"
-        centered>
-                    <Modal.Header closeButton>
-                        <Modal.Title><h2>{book.title}</h2></Modal.Title>
-                        <Modal.Title><h3>{book.author}</h3></Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body><img width="400px" src={book.photo} alt="bookphoto"/>
-                        <p>{book.description}</p>
-                        <p>{book.category}</p>
-                        <p>Switch mode: {book.switchMode}</p>
-                        {(book.owner == !this.props.user) && (<p>Book owner: {book.owner}</p>)}
-                    </Modal.Body>
-                    <Modal.Footer>
-                    {/* { (book.owner == this.props.user) && (<img src='/assets/008-edition.png' alt="editbook-icon" onClick={editBook}/>)}
-                    { (book.owner == this.props.user) && (<img src='/assets/032-delete-4.png' alt="deletebook-icon" onClick={deleteBook}/>)}
-                    { (book.owner == !this.props.user) && (<Button onClick={sendMessage}><h2>Request Switch</h2></Button>)} */}   
-                    </Modal.Footer>
-                </Modal>
+        
+        if(!book||!user){
+            return <>
+            <Spinner animation="border" variant="primary" />
+            <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="success" />
+            <Spinner animation="grow" variant="primary" />
+            <Spinner animation="grow" variant="secondary" />
+            <Spinner animation="grow" variant="success" />
+          </>
+          }
+
+          console.log(user._id,book.owner._id)
+          const link=`/messages/`+book.owner._id
+
+        return (<div className="div-message">
+       
+            <div className="messages-div list-group">
+                <div className="card mb-3" style={{maxWidth: "800px"}}>
+                    <div className="row g-0">
+                        <div className="col-md-4">
+                            <img className="small-image" src={book.photo} alt="book-image"></img>
+                        </div>
+                        <div className="col-md-8">
+                            <div className="card-body">
+                                <h4 className="card-title">{book.title}</h4>
+                                <h5 className="card-title">by {book.author} </h5>                               
+                                <p className="card-text">{book.description}</p>
+                                <h5 className="card-title">to {book.switchMode}</h5>
+                                {(user._id!==book.owner._id)&&(<p>Book owner: {book.owner.username}</p>)}
+                                <div>
+                                { (user._id===book.owner._id)&&(<img src='/assets/008-edition.png' alt="editbook-icon" ></img>)}
+                                {  (user._id===book.owner._id)&&(<img src='/assets/032-delete-4.png' alt="deletebook-icon"></img>)}
+                                { (user._id!==book.owner._id)&&(<Link to={link} ><Button >Request Switch</Button></Link>)} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+     
+        </div>
+  
+                  
+              
         )
     }
 }
