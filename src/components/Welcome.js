@@ -1,6 +1,5 @@
 import React from 'react'
 import {Card, Button, Modal} from 'react-bootstrap'
-import { Link } from 'react-router-dom';
 
 
 function  WelcomePage(props) {

@@ -51,7 +51,7 @@ export default class MessageList extends Component {
         let messageGroups = []
         messages.filter(msg => (msg.bookRelated)).forEach(ms => {  
             
-          let contact = (ms.between[0]._id == loggedInUser._id) ? ms.between[1] : ms.between[0]
+          let contact = (ms.between[0]._id === loggedInUser._id) ? ms.between[1] : ms.between[0]
           
           if (!contacts.includes(contact._id)) {
             let messageGroup = {

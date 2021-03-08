@@ -16,26 +16,35 @@ class App extends Component {
   state = {
     loggedInUser: "",
     isNewUser: true,
-    number:0
+    userLibrary:[]
   };
 
   componentDidMount() {
-    this.setState({
-      number:5
-    })
 
-    if (!this.state.loggedInUser) {
       axios
         .get("http://localhost:5005/api/auth/user", { withCredentials: true })
         .then((response) => {
-          this.setState({
-            loggedInUser: response.data,
-          });
+          this.setState(
+            {
+              loggedInUser: response.data,
+            },
+            () => {
+              axios
+                .get(
+                  `http://localhost:5005/api/book/user/${this.state.loggedInUser._id}`
+                )
+                .then((response) => {
+                  this.setState(
+                    {
+                      userLibrary: response.data,
+                    }
+                  );
+                });
+            }
+          );
         })
         .catch(() => {});
     }
-  }
-
   handleSignUp = (event) => {
     event.preventDefault();
     const username = event.target.username.value;
@@ -111,16 +120,103 @@ class App extends Component {
       });
   };
 
-    
-
   handleFirstEdit = (event) => {
     // this.setState({ isNewUser: false }, () => {
     //   this.props.history.push("/profile");
     // });
   };
 
-  render() {
+  handleEditBook = (id,event) => {
+    event.preventDefault();
+    const title = event.target.title.value;
+    const author = event.target.author.value;
+    const description = event.target.description.value;
+    const language = event.target.language.value;
+    const category = event.target.category.value;
+    const switchMode = event.target.switchMode.value;
 
+    const editedBook={title, author,description,language,category,switchMode}
+    
+
+    axios
+      .post(`http://localhost:5005/api/book/edit/${id}`, editedBook, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        let updatedBook=response.data
+        let updatedLibrary=this.state.userLibrary.map(book=>{
+          if(book._id===updatedBook._id){
+            updatedBook.owner=book.owner;
+            return updatedBook
+          }else{
+            return book
+          }
+        })
+        this.setState({
+          userLibrary:updatedLibrary
+        },() => {
+          this.props.history.push(`/book/${id}`);
+        }
+        
+        )     
+    }
+            
+      )
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      }); 
+  };
+
+  handleAddBook = (event) => {
+    event.preventDefault();
+    const title = event.target.title.value;
+    const author = event.target.author.value;
+    const description = event.target.description.value;
+    const language = event.target.language.value;
+    const category = event.target.category.value;
+    const switchMode = event.target.switchMode.value;
+
+    const newBook={title, author,description,language,category,switchMode}
+    
+
+    axios
+      .post(`http://localhost:5005/api/book/add`, newBook, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        let responseBook=response.data
+        this.setState({
+          userLibrary:[responseBook, ...this.state.userLibrary]
+        })  
+    })
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      }); 
+  };
+
+  handleDelete = (bookId) => {
+      console.log(bookId)
+    
+      axios.delete(`http://localhost:5005/api/book/delete/${bookId}`,{
+        withCredentials: true,
+      })
+        .then(() => {
+           
+            let filteredBooks = this.state.userLibrary.filter((book) => {
+              return book._id !== bookId
+            })
+            this.setState({
+              userLibrary: filteredBooks
+            }, () => {
+              this.props.history.push('/profile')
+            })
+        })
+        .catch((err) => {
+          console.log('Delete failed', err)
+        })
+   }
+
+  render() {
     return (
       <div className="App">
         <NavBar
@@ -137,22 +233,14 @@ class App extends Component {
             exact
             path="/"
             render={(routeProps) => {
-              return (
-                <BookList
-                  {...routeProps}
-                />
-              );
+              return <BookList {...routeProps} />;
             }}
           />
           <Route
-          exact
+            exact
             path="/messages"
             render={(routeProps) => {
-              return (
-                <MessageList
-                  {...routeProps}
-                />
-              );
+              return <MessageList {...routeProps} />;
             }}
           />
           <Route
@@ -174,7 +262,14 @@ class App extends Component {
           <Route
             path="/book/:bookId"
             render={(routeProps) => {
-              return <BookDetails user={this.state.loggedInUser} {...routeProps} />;
+              return (
+                <BookDetails 
+                user={this.state.loggedInUser}
+                handleAddBook={this.handleAddBook}
+                handleDelete={this.handleDelete}
+                handleEditBook={this.handleEditBook}
+                {...routeProps} />
+              );
             }}
           />
           <Route
@@ -183,8 +278,21 @@ class App extends Component {
               return <MessagesDetails {...routeProps} />;
             }}
           />
-
-          <Route path="/profile" component={Profile} />
+          <Route
+            path="/profile"
+            render={(routeProps) => {
+              return (
+                <Profile
+                  userLibrary={this.state.userLibrary}
+                  user={this.state.loggedInUser}
+                  handleAddBook={this.handleAddBook}
+                  handleDelete={this.handleDelete}
+                  handleEditBook={this.handleEditBook}
+                  {...routeProps}
+                />
+              );
+            }}
+          />
         </Switch>
         <FooterBar />
       </div>

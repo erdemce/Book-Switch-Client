@@ -1,5 +1,5 @@
 import React, { Component} from 'react'
-import {Link} from 'react-router-dom'
+
 
 export default class FooterBar extends Component {
     render() {
@@ -36,5 +36,3 @@ export default class FooterBar extends Component {
         )
     }
 }
-
-{/* <div className="col-md-4 py-1 my-2"></div> */}

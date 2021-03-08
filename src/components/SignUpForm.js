@@ -12,7 +12,7 @@ export default class SignUpForm extends Component {
       .then((response) => {
 
         this.setState({ locations: response.data})
-      })
+      },()=>console.log(this.state.locations))
   }
 
 

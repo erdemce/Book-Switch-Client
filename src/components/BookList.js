@@ -10,8 +10,7 @@ export default class BookList extends Component {
     books: [],
     filtered: [],
     mode: "all",
-    searchText: "",
-  };
+    searchText: ""  };
 
   componentDidMount() {
   
@@ -59,7 +58,7 @@ export default class BookList extends Component {
   render() {
     const { books, filtered } = this.state;
 
-    if(books.length>0){
+    if(books.length===0){
       return <>
       <Spinner animation="border" variant="primary" />
       <Spinner animation="border" variant="secondary" />

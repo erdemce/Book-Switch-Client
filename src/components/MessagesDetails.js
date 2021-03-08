@@ -25,7 +25,7 @@ export default class MessagesDetails extends Component {
         axios
           .get(`http://localhost:5005/api/message/${contactId}`, { withCredentials: true })
           .then((response) => {
-            let contact=response.data[0].between[0]._id==contactId ? response.data[0].between[0] : response.data[0].between[1]
+            let contact=response.data[0].between[0]._id===contactId ? response.data[0].between[0] : response.data[0].between[1]
             
 
 
@@ -92,7 +92,7 @@ export default class MessagesDetails extends Component {
                             <div className="card mb-3" style={{maxWidth: "800px"}}>
                                 <div className="row g-0">
                                     <div className="col-md-4">
-                                        <img className="small-image" src={this.state.book.photo} alt="book-image"></img>
+                                        <img className="small-image" src={this.state.book.photo} alt="book-cover"></img>
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
@@ -113,7 +113,7 @@ export default class MessagesDetails extends Component {
                      {
                        messages.map((message)=>{
                          let date=message.date;
-                         let className=(message.between[1]._id==contact._id)? "div-right" : "div-left"
+                         let className=(message.between[1]._id===contact._id)? "div-right" : "div-left"
                          return (
                            <div className={className}>
                          {message.text}<br></br>
