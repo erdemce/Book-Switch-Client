@@ -202,6 +202,7 @@ class App extends Component {
         .then(() => {
            
             let filteredBooks = this.state.userLibrary.filter((book) => {
+              console.log(bookId,"from map",book._id)
               return book._id !== bookId
             })
             this.setState({

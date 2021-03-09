@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Card, Spinner } from "react-bootstrap";
 import axios from "axios";
-import ShowEditProfile from "./EditProfile";
+import EditProfile from "./EditProfile";
 import AddBookForm from "./BookForm";
 import AddBook from "./BookForm";
 import BookDetailsCard from "./BookDetailsCard";
@@ -11,14 +11,8 @@ export default class Profile extends Component {
   state = {
     addFormShow: false,
     profileFormShow:false,
-    userLibrary:[]
   };
 
-  constructor(props) {
-    super(props)
-    const { userLibrary } = props;
-    this.stsetState = {userLibrary};
-  }
 
   onHide=()=>{
  
@@ -26,24 +20,68 @@ export default class Profile extends Component {
 }
 
 
-  // handleProfileChange = (event) => {
-  //     let username = event.target.username.value
-  //     let name = event.target.name.value
-  //     let lastName = event.target.lastName.value
-  //     let city = event.target.city.value
-  //     let updatedUser = {username, name, lastName, city}
-  //     // let cloneUser = JSON.parse(JSON.stringify(this.state.user))
+  handleProfileChange = (event) => {
+      event.preventDefault();
 
-  //     this.setState({
-  //       user: updatedUser
-  //     })
-  //   }
+      let username = event.target.username.value
+      let name = event.target.name.value
+      let lastName = event.target.lastName.value
+      let city = event.target.city.value
+      
+      let email=this.props.user.email;
+      let _id=this.props.user._id
+      let updatedUser = {username, name, email, lastName, city,_id}
+      // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
+
+      this.setState({
+        user: updatedUser
+      })
+    }
+    /*
+    
+    const title = event.target.title.value;
+    const author = event.target.author.value;
+    const description = event.target.description.value;
+    const language = event.target.language.value;
+    const category = event.target.category.value;
+    const switchMode = event.target.switchMode.value;
+
+    const editedBook={title, author,description,language,category,switchMode}
+    
+
+    axios
+      .post(`http://localhost:5005/api/book/edit/${id}`, editedBook, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        let updatedBook=response.data
+        let updatedLibrary=this.state.userLibrary.map(book=>{
+          if(book._id===updatedBook._id){
+            updatedBook.owner=book.owner;
+            return updatedBook
+          }else{
+            return book
+          }
+        })
+        this.setState({
+          userLibrary:updatedLibrary
+        },() => {
+          this.props.history.push(`/book/${id}`);
+        }
+        
+        )     
+    }
+            
+      )
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      }); */
 
   
 
   render() {
-    const { addFormShow, profileFormShow,userLibrary} = this.state;
-    const {  user, handleDelete, handleEditBook , handleAddBook} = this.props;
+    const { addFormShow, profileFormShow} = this.state;
+    const {  userLibrary, user, handleDelete, handleEditBook , handleAddBook} = this.props;
 
     if (!user) {
       return (
@@ -71,7 +109,7 @@ export default class Profile extends Component {
             <img
               src="/assets/008-edition.png"
               alt="editprofile-icon"
-              onClick={() => this.setState({ modalShow: true })}
+              onClick={() => this.setState({ profileFormShow: true })}
             ></img>
           </div>
           <Card.Body>
@@ -106,10 +144,11 @@ export default class Profile extends Component {
           </Card.Footer>
 
           {profileFormShow && (
-            <ShowEditProfile
+            <EditProfile
+              show={profileFormShow}
               user={user}
               onSubmit={this.handleProfileChange}
-              onHide={() => this.setState({ modalShow: false })}
+              onHide={() => this.setState({ profileFormShow: false })}
             />
           )}
         </Card>
