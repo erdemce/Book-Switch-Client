@@ -26,58 +26,26 @@ export default class Profile extends Component {
       let username = event.target.username.value
       let name = event.target.name.value
       let lastName = event.target.lastName.value
-      let city = event.target.city.value
-      
-      let email=this.props.user.email;
+      let location = event.target.location.value 
       let _id=this.props.user._id
-      let updatedUser = {username, name, email, lastName, city,_id}
+      let updatedUser = {username, name, lastName, location,_id}
       // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
 
-      this.setState({
-        user: updatedUser
-      })
-    }
-    /*
-    
-    const title = event.target.title.value;
-    const author = event.target.author.value;
-    const description = event.target.description.value;
-    const language = event.target.language.value;
-    const category = event.target.category.value;
-    const switchMode = event.target.switchMode.value;
-
-    const editedBook={title, author,description,language,category,switchMode}
-    
-
-    axios
-      .post(`http://localhost:5005/api/book/edit/${id}`, editedBook, {
+      axios
+      .post(`http://localhost:5005/api/auth/user`, updatedUser, {
         withCredentials: true,
       })
-      .then((response) => {
-        let updatedBook=response.data
-        let updatedLibrary=this.state.userLibrary.map(book=>{
-          if(book._id===updatedBook._id){
-            updatedBook.owner=book.owner;
-            return updatedBook
-          }else{
-            return book
-          }
-        })
-        this.setState({
-          userLibrary:updatedLibrary
-        },() => {
-          this.props.history.push(`/book/${id}`);
-        }
-        
+      .then((response) => {    
+          this.props.history.push(`/profile`);
+        }    
         )     
-    }
-            
-      )
       .catch((err) => {
         console.log("Something went wrong", err);
-      }); */
+      });
 
-  
+    }
+
+ 
 
   render() {
     const { addFormShow, profileFormShow} = this.state;
