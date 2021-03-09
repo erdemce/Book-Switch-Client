@@ -10,8 +10,15 @@ import BookForm from "./BookForm";
 export default class Profile extends Component {
   state = {
     addFormShow: false,
-    profileFormShow:false
+    profileFormShow:false,
+    userLibrary:[]
   };
+
+  constructor(props) {
+    super(props)
+    const { userLibrary } = props;
+    this.stsetState = {userLibrary};
+  }
 
   onHide=()=>{
  
@@ -35,8 +42,8 @@ export default class Profile extends Component {
   
 
   render() {
-    const { addFormShow, profileFormShow} = this.state;
-    const {  user, userLibrary, handleDelete, handleEditBook , handleAddBook} = this.props;
+    const { addFormShow, profileFormShow,userLibrary} = this.state;
+    const {  user, handleDelete, handleEditBook , handleAddBook} = this.props;
 
     if (!user) {
       return (
@@ -124,7 +131,7 @@ export default class Profile extends Component {
         )} */}
         {userLibrary.map((book) => {
           return (
-            <BookDetailsCard
+            <BookDetailsCard key={book._id}
               handleDelete={(event)=>{
     
                 handleDelete(book._id,event);

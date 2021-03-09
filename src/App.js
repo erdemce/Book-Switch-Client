@@ -195,7 +195,6 @@ class App extends Component {
   };
 
   handleDelete = (bookId) => {
-      console.log(bookId)
     
       axios.delete(`http://localhost:5005/api/book/delete/${bookId}`,{
         withCredentials: true,
