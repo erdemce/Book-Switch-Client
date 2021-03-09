@@ -11,10 +11,42 @@ export default class Profile extends Component {
     profileFormShow: false,
   };
 
+
   onHide = () => {
     this.setState({ addFormShow: false });
   };
 
+  handleProfileChange = (event) => {
+      event.preventDefault();
+
+      let username = event.target.username.value
+      let name = event.target.name.value
+      let lastName = event.target.lastName.value
+      let location = event.target.location.value 
+      let _id=this.props.user._id
+      let updatedUser = {username, name, lastName, location,_id}
+      // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
+
+      axios
+      .post(`http://localhost:5005/api/auth/user`, updatedUser, {
+        withCredentials: true,
+      })
+      .then((response) => {    
+          this.props.history.push(`/profile`);
+        }    
+        )     
+      .catch((err) => {
+        console.log("Something went wrong", err);
+      });
+
+    }
+
+
+  onHide=()=>{
+  this.setState({addFormShow:false})
+}
+
+ 
   render() {
     const { addFormShow, profileFormShow } = this.state;
     const {
@@ -29,12 +61,11 @@ export default class Profile extends Component {
     if (!user) {
       return (
         <>
-          <Spinner animation="border" variant="primary" />
           <Spinner animation="border" variant="secondary" />
-          <Spinner animation="border" variant="success" />
+          <Spinner animation="border" variant="light" />
           <Spinner animation="grow" variant="primary" />
           <Spinner animation="grow" variant="secondary" />
-          <Spinner animation="grow" variant="success" />
+          <Spinner animation="grow" variant="light" />
         </>
       );
     }
@@ -66,24 +97,19 @@ export default class Profile extends Component {
             <Card.Title>Your details</Card.Title>
             <table>
               <tbody>
-                <tr>
-                  <th>Username:</th>
+                <tr><th>Username:</th>
                   <td>{user.username}</td>
                 </tr>
-                <tr>
-                  <th>Name:</th>
+                <tr><th>Name:</th>
                   <td>{user.name}</td>
                 </tr>
-                <tr>
-                  <th>Last Name:</th>
+                <tr><th>Last Name:</th>
                   <td>{user.lastName}</td>
                 </tr>
-                <tr>
-                  <th>City:</th>
+                <tr><th>City:</th>
                   <td>{user.location.city}</td>
                 </tr>
-                <tr>
-                  <th>Email:</th>
+                <tr><th>Email:</th>
                   <td>{user.email}</td>
                 </tr>
               </tbody>
