@@ -86,8 +86,9 @@ export default class Profile extends Component {
         <Card className="text-center" style={{ width: "18rem" }}>
           <Card.Img variant="top" src={user.photo} roundedCircle />
           <div>
-            <img src="/assets/003-camera.png" alt="uploadphoto-icon"></img>
+            <img src="/assets/003-camera.png" style={{cursor: "pointer"}} alt="uploadphoto-icon"></img>
             <img
+              style = {{cursor: "pointer"}}
               src="/assets/008-edition.png"
               alt="editprofile-icon"
               onClick={() => this.setState({ profileFormShow: true })}
@@ -138,6 +139,7 @@ export default class Profile extends Component {
 
         {!userLibrary.length && <h1>You have no books yet in your Library</h1>}
         <img
+          style={{cursor: "pointer"}}
           src="/assets/026-library-2.png"
           alt="addbook-icon"
           onClick={() => this.setState({ addFormShow: true })}
