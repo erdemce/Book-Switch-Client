@@ -45,6 +45,11 @@ class App extends Component {
         })
         .catch(() => {});
     }
+
+    handlePhoto=()=>{
+      
+    }
+
   handleSignUp = (event) => {
     event.preventDefault();
     const username = event.target.username.value;
@@ -216,6 +221,30 @@ class App extends Component {
         })
    }
 
+   handleProfileChange = (event) => {
+    event.preventDefault();
+    let username = event.target.username.value
+    let name = event.target.name.value
+    let lastName = event.target.lastName.value
+    let location = event.target.location.value 
+    let _id=this.state.loggedInUser._id
+    let updatedUser = {username, name, lastName, location,_id}
+    // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
+    axios.post(`http://localhost:5005/api/auth/user`, updatedUser, {
+      withCredentials: true,
+    })
+    .then((response) => {    
+      this.setState({
+        loggedInUser:response.data
+      },() => {
+        this.props.history.push(`/profile`);
+      })
+    })    
+    .catch((err) => {
+      console.log("Something went wrong", err);
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -288,6 +317,7 @@ class App extends Component {
                   handleAddBook={this.handleAddBook}
                   handleDelete={this.handleDelete}
                   handleEditBook={this.handleEditBook}
+                  handleProfileChange={this.handleProfileChange}
                   {...routeProps}
                 />
               );

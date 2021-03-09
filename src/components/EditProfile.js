@@ -6,7 +6,7 @@ function EditProfile(props) {
   const [locations, setLocations] = useState([]);
   const [name, setName] = useState(props.user.name);
   const [username, setUsername] = useState(props.user.username);
-  const [lastName, setLastName] = useState(props.user.language);
+  const [lastName, setLastName] = useState(props.user.lastName);
   const [location, setLocation] = useState(props.user.location);
 
   useEffect(() => {
@@ -37,7 +37,10 @@ function EditProfile(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={props.handleProfileChange}>
+        <Form onSubmit={(event)=>{
+          props.onHide();
+          props.handleProfileChange(event)
+        }}>
           <Form.Group>
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -98,20 +101,5 @@ function EditProfile(props) {
     </Modal>
   );
 }
-
-// function ShowEditProfile(props) {
-//   const [modalShow, setModalShow] = React.useState(true);
-
-//   return (
-//     <>
-//       <EditProfile
-//         user={props.user}
-//         handleFirstEdit={props.handleFirstEdit}
-//         show={modalShow}
-//         onHide={() => setModalShow(false)}
-//       />
-//     </>
-//   );
-// }
 
 export default EditProfile;
