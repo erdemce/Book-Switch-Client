@@ -19,7 +19,7 @@ function BookForm(props) {
       query = author ? query + "/" + author : query;
       setTimeout(() => {
         axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/api/book/search${query}`, {
+          .get(`/api/book/search${query}`, {
             withCredentials: true,
           })
           .then((response) => {

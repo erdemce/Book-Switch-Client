@@ -31,7 +31,7 @@ export default class Profile extends Component {
       
 
       axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, updatedUser, {
+      .post(`/api/auth/user`, updatedUser, {
         withCredentials: true,
       })
       .then((response) => {    

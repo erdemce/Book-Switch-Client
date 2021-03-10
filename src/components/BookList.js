@@ -14,10 +14,10 @@ export default class BookList extends Component {
     searchText: ""  };
 
   componentDidMount() {
-    console.log(process.env.REACT_APP_SERVER_URL)
+   
   
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/api/book`)
+      .get(`/api/book`)
       .then((response) => {
         this.setState({ books: response.data, filtered: response.data });
       })

@@ -13,7 +13,7 @@ export default class MessageList extends Component {
 
         if (!this.state.loggedInUser) {
             axios
-              .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, { withCredentials: true })
+              .get(`/api/auth/user`, { withCredentials: true })
               .then((response) => {
                 this.setState({
                   loggedInUser: response.data,
@@ -22,7 +22,7 @@ export default class MessageList extends Component {
               .catch(() => {});
           }
         axios
-          .get(`${process.env.REACT_APP_SERVER_URL}/api/message`, { withCredentials: true })
+          .get(`/api/message`, { withCredentials: true })
           .then((response) => {
             this.setState({ messages: response.data});
           })

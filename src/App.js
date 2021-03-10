@@ -22,7 +22,7 @@ class App extends Component {
   componentDidMount() {
 
       axios
-        .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, { withCredentials: true })
+        .get(`/api/auth/user`, { withCredentials: true })
         .then((response) => {
           this.setState(
             {
@@ -31,7 +31,7 @@ class App extends Component {
             () => {
               axios
                 .get(
-                  `${process.env.REACT_APP_SERVER_URL}/api/book/user/${this.state.loggedInUser._id}`
+                  `/api/book/user/${this.state.loggedInUser._id}`
                 )
                 .then((response) => {
                   this.setState(
@@ -53,10 +53,10 @@ class App extends Component {
     uploadForm.append('imageUrl', photo)
    
 
-    axios.post(process.env.REACT_APP_SERVER_URL+"/api/cloudinary/upload", uploadForm)
+    axios.post("/api/cloudinary/upload", uploadForm)
     .then((response)=> {
       console.log(response.data)
-    //   axios.post(process.env.REACT_APP_SERVER_URL+"api/auth/user`, {photo: response.data.photo, 
+    //   axios.post("api/auth/user`, {photo: response.data.photo, 
     //   withCredentials: true,
     })
     // .then((response) => {    
@@ -86,7 +86,7 @@ class App extends Component {
     let user = { username, name, lastName, email, password, location };
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/signup`, user, {
+      .post(`/api/auth/signup`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -113,7 +113,7 @@ class App extends Component {
     };
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/login`, user, {
+      .post(`/api/auth/login`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -134,7 +134,7 @@ class App extends Component {
   handleLogout = () => {
     axios
       .post(
-        `${process.env.REACT_APP_SERVER_URL}/api/auth/logout`,
+        `/api/auth/logout`,
         {},
         { withCredentials: true }
       )
@@ -172,7 +172,7 @@ class App extends Component {
     
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/book/edit/${id}`, editedBook, {
+      .post(`/api/book/edit/${id}`, editedBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -214,7 +214,7 @@ class App extends Component {
     
 
     axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/book/add`, newBook, {
+      .post(`/api/book/add`, newBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -230,7 +230,7 @@ class App extends Component {
 
   handleDelete = (bookId) => {
     
-      axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/book/delete/${bookId}`,{
+      axios.delete(`/api/book/delete/${bookId}`,{
         withCredentials: true,
       })
         .then(() => {
@@ -259,7 +259,7 @@ class App extends Component {
     let _id=this.state.loggedInUser._id
     let updatedUser = {username, name, lastName, location,_id}
     // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, updatedUser, {
+    axios.post(`/api/auth/user`, updatedUser, {
       withCredentials: true,
     })
     .then((response) => {    

@@ -14,7 +14,7 @@ componentDidMount(){
 
 
     let bookId = this.props.match.params.bookId
-    axios.get(`${process.env.REACT_APP_SERVER_URL}/api/book/get/${bookId}`)
+    axios.get(`/api/book/get/${bookId}`)
       .then((response) => {
       
         this.setState({ book: response.data})

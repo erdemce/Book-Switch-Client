@@ -13,7 +13,7 @@ function EditProfile(props) {
   useEffect(() => {
     let mounted = true;
     axios
-      .get(`${process.env.REACT_APP_SERVER_URL}/api/location`)
+      .get(`/api/location`)
       .then((response) => {
         if (mounted) {
           setLocations(response.data);
