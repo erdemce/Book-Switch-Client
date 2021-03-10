@@ -1,4 +1,4 @@
-import config from '../config'
+
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
@@ -19,7 +19,7 @@ function BookForm(props) {
       query = author ? query + "/" + author : query;
       setTimeout(() => {
         axios
-          .get(`${config.API_URL}/api/book/search${query}`, {
+          .get(`${process.env.REACT_APP_SERVER_URL}/api/book/search${query}`, {
             withCredentials: true,
           })
           .then((response) => {
@@ -49,7 +49,7 @@ function BookForm(props) {
               .map((book) => {
                 let newTitle =
                   book.volumeInfo.title.length > 15
-                    ? book.volumeInfo.title.slice(0, 15) + " ..."
+                    ? book.volumeInfo.title.slice(0, 15) + "..."
                     : book.volumeInfo.title;
                 return (
                   <a

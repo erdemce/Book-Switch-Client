@@ -1,4 +1,4 @@
-import config from '../config'
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
@@ -15,7 +15,7 @@ function SignUpForm(props) {
   useEffect(() => {
     let mounted = true;
     axios
-      .get(`${config.API_URL}/api/location`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/location`)
       .then((response) => {
         if (mounted) {
           setLocations(response.data);

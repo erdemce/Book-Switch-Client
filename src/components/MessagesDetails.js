@@ -1,4 +1,4 @@
-import config from '../config'
+
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default class MessagesDetails extends Component {
     componentDidMount() {
         if (!this.state.loggedInUser) {
             axios
-              .get(`${config.API_URL}/api/auth/user`, { withCredentials: true })
+              .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, { withCredentials: true })
               .then((response) => {
                 this.setState({
                   loggedInUser: response.data,
@@ -24,7 +24,7 @@ export default class MessagesDetails extends Component {
           }
           let contactId = this.props.match.params.contactId
         axios
-          .get(`${config.API_URL}/api/message/${contactId}`, { withCredentials: true })
+          .get(`${process.env.REACT_APP_SERVER_URL}/api/message/${contactId}`, { withCredentials: true })
           .then((response) => {
             let contact=response.data[0].between[0]._id===contactId ? response.data[0].between[0] : response.data[0].between[1]
             
@@ -52,7 +52,7 @@ export default class MessagesDetails extends Component {
           bookRelated:this.state.book
         }
         axios
-      .post(`${config.API_URL}/api/message`, message, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/message`, message, {
         withCredentials: true,
       })
       .then((response) => {

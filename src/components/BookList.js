@@ -1,4 +1,4 @@
-import config from '../config'
+
 import React, { Component } from "react";
 import { Button,Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -14,9 +14,10 @@ export default class BookList extends Component {
     searchText: ""  };
 
   componentDidMount() {
+    console.log(process.env.REACT_APP_SERVER_URL)
   
     axios
-      .get(`${config.API_URL}/api/book`)
+      .get(`ggg/api/book`)
       .then((response) => {
         this.setState({ books: response.data, filtered: response.data });
       })
@@ -59,7 +60,7 @@ export default class BookList extends Component {
   render() {
     const { books, filtered } = this.state;
 
-    if(books.length===0 || !books || !filtered){
+    if(books.length===0 ){
       return <>
       <Spinner animation="border" variant="primary" />
       <Spinner animation="border" variant="secondary" />

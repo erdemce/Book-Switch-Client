@@ -1,4 +1,3 @@
-import config from './config'
 import React, { Component } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -23,7 +22,7 @@ class App extends Component {
   componentDidMount() {
 
       axios
-        .get(`${config.API_URL}/api/auth/user`, { withCredentials: true })
+        .get(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, { withCredentials: true })
         .then((response) => {
           this.setState(
             {
@@ -32,7 +31,7 @@ class App extends Component {
             () => {
               axios
                 .get(
-                  `${config.API_URL}/api/book/user/${this.state.loggedInUser._id}`
+                  `${process.env.REACT_APP_SERVER_URL}/api/book/user/${this.state.loggedInUser._id}`
                 )
                 .then((response) => {
                   this.setState(
@@ -87,7 +86,7 @@ class App extends Component {
     let user = { username, name, lastName, email, password, location };
 
     axios
-      .post(`${config.API_URL}/api/auth/signup`, user, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/signup`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -114,7 +113,7 @@ class App extends Component {
     };
 
     axios
-      .post(`${config.API_URL}/api/auth/login`, user, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/auth/login`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -135,7 +134,7 @@ class App extends Component {
   handleLogout = () => {
     axios
       .post(
-        `${config.API_URL}/api/auth/logout`,
+        `${process.env.REACT_APP_SERVER_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       )
@@ -173,7 +172,7 @@ class App extends Component {
     
 
     axios
-      .post(`${config.API_URL}/api/book/edit/${id}`, editedBook, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/book/edit/${id}`, editedBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -215,7 +214,7 @@ class App extends Component {
     
 
     axios
-      .post(`${config.API_URL}/api/book/add`, newBook, {
+      .post(`${process.env.REACT_APP_SERVER_URL}/api/book/add`, newBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -231,7 +230,7 @@ class App extends Component {
 
   handleDelete = (bookId) => {
     
-      axios.delete(`${config.API_URL}/api/book/delete/${bookId}`,{
+      axios.delete(`${process.env.REACT_APP_SERVER_URL}/api/book/delete/${bookId}`,{
         withCredentials: true,
       })
         .then(() => {
@@ -260,7 +259,7 @@ class App extends Component {
     let _id=this.state.loggedInUser._id
     let updatedUser = {username, name, lastName, location,_id}
     // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
-    axios.post(`${config.API_URL}/api/auth/user`, updatedUser, {
+    axios.post(`${process.env.REACT_APP_SERVER_URL}/api/auth/user`, updatedUser, {
       withCredentials: true,
     })
     .then((response) => {    
