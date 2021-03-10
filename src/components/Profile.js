@@ -42,9 +42,6 @@ export default class Profile extends Component {
 
     }
 
-
-
-
  
   render() {
     const { addFormShow, profileFormShow, showUploadPhotoForm } = this.state;

@@ -146,3 +146,9 @@ h3 {
   padding: 1em;
   text-align: start;
 }
+
+.google-book-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

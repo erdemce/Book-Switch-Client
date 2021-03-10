@@ -10,7 +10,7 @@ export default function UploadPhotoForm(props) {
         <Form onSubmit={(event)=>{
           props.onHide();
           props.handlePhoto(event)
-        }}> enctype="multipart/form-data">
+        }} enctype="multipart/form-data">
             <input type="file" name="photo" accept="image/png, image/jpg"/>
             <Button type="submit">Upload Photo</Button> 
         </Form>
