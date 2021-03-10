@@ -4,13 +4,14 @@ export default class SearchBar extends Component {
   render() {
     const { forSearch } = this.props;
     return (
-      <section className="searchbar">
+      <section className="searchbar body-width">
         <form className="d-flex" action="/home" method="GET">
+          <img width="30px"src="/assets/006-search.png" alt="searchicon"/>
           <input
             name="searchedToy"
-            className="form-control me-2"
+            className="search-input form-control me-2"
             type="search"
-            placeholder="Search for Author or Title"
+            placeholder="Search by Author or Title"
             aria-label="Search"
             onChange={forSearch}
           ></input>

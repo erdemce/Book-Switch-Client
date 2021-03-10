@@ -7,8 +7,7 @@ export default class LogInForm extends Component {
     render() {
           
         return (
-                <div>
-                <Form onSubmit={this.props.handleSubmit}>
+                <Form className="body-width" onSubmit={this.props.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control name="email" required type="email" placeholder="Enter email" />
@@ -22,7 +21,6 @@ export default class LogInForm extends Component {
                 </Button>
                
                 </Form> 
-                </div>
            
         )
     }

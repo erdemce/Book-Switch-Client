@@ -46,8 +46,31 @@ class App extends Component {
         .catch(() => {});
     }
 
-    handlePhoto=()=>{
-      
+  handlePhoto=(event)=>{
+    event.preventDefault()
+    let photo = event.target.photo.files[0]
+    let uploadForm = new FormData()
+    uploadForm.append('imageUrl', photo)
+
+    // axios.post(`http://localhost:5005/api/upload`, uploadForm)
+    // .then((response)=> {
+    //   axios.post(`http://localhost:5005/api/auth/user`, {photo: response.data.photo, 
+    //   withCredentials: true,
+    // })
+    // .then((response) => {    
+    //   this.setState({
+    //     loggedInUser:response.data
+    //   },() => {
+    //     this.props.history.push(`/profile`);
+    //   })
+    // })    
+    // .catch((err) => {
+    //   console.log("Something went wrong", err);
+    // });
+    // })
+    // .catch(()=> {
+
+    // })
     }
 
   handleSignUp = (event) => {
@@ -318,6 +341,7 @@ class App extends Component {
                   handleDelete={this.handleDelete}
                   handleEditBook={this.handleEditBook}
                   handleProfileChange={this.handleProfileChange}
+                  handlePhoto={this.handlePhoto}
                   {...routeProps}
                 />
               );

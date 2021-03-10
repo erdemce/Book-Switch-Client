@@ -4,11 +4,13 @@ import axios from "axios";
 import EditProfile from "./EditProfile";
 import BookDetailsCard from "./BookDetailsCard";
 import BookForm from "./BookForm";
+import UploadPhotoForm from "./UploadPhotoForm";
 
 export default class Profile extends Component {
   state = {
     addFormShow: false,
     profileFormShow: false,
+    showUploadPhotoForm: false
   };
 
 
@@ -33,8 +35,7 @@ export default class Profile extends Component {
       })
       .then((response) => {    
           this.props.history.push(`/profile`);
-        }    
-        )     
+      })     
       .catch((err) => {
         console.log("Something went wrong", err);
       });
@@ -42,13 +43,11 @@ export default class Profile extends Component {
     }
 
 
-  onHide=()=>{
-  this.setState({addFormShow:false})
-}
+
 
  
   render() {
-    const { addFormShow, profileFormShow } = this.state;
+    const { addFormShow, profileFormShow, showUploadPhotoForm } = this.state;
     const {
       userLibrary,
       user,
@@ -56,6 +55,7 @@ export default class Profile extends Component {
       handleEditBook,
       handleProfileChange,
       handleAddBook,
+      handlePhoto
     } = this.props;
 
     if (!user) {
@@ -71,7 +71,7 @@ export default class Profile extends Component {
     }
 
     return (
-      <div>
+      <div className="body-width" >
         {addFormShow && (
           <BookForm
             show={addFormShow}
@@ -80,15 +80,21 @@ export default class Profile extends Component {
             handleAddorEditBook={handleAddBook}
           />
         )}
-        <h2>
-          Hello {user.name}! <br></br>Welcome to your profile
-        </h2>
+        {showUploadPhotoForm && (
+          <UploadPhotoForm
+            show={addFormShow}
+            onHide={() => this.setState({ showUploadPhotoForm: false })}
+            handlePhoto={handlePhoto}
+          />
+        )}
+        <h2>Hello {user.name}! <br></br>Welcome to your profile</h2>
+
         <Card className="text-center" style={{ width: "18rem" }}>
           <Card.Img variant="top" src={user.photo} roundedCircle />
           <div>
-            <img src="/assets/003-camera.png" style={{cursor: "pointer"}} alt="uploadphoto-icon"></img>
+            <img src="/assets/003-camera.png" style={{cursor: "pointer"}} onClick={() => this.setState({ showUploadPhotoForm: true })} alt="uploadphoto-icon"></img>
             <img
-              style = {{cursor: "pointer"}}
+              style = {{cursor:"pointer"}}
               src="/assets/008-edition.png"
               alt="editprofile-icon"
               onClick={() => this.setState({ profileFormShow: true })}
@@ -98,21 +104,11 @@ export default class Profile extends Component {
             <Card.Title>Your details</Card.Title>
             <table>
               <tbody>
-                <tr><th>Username:</th>
-                  <td>{user.username}</td>
-                </tr>
-                <tr><th>Name:</th>
-                  <td>{user.name}</td>
-                </tr>
-                <tr><th>Last Name:</th>
-                  <td>{user.lastName}</td>
-                </tr>
-                <tr><th>City:</th>
-                  <td>{user.location.city}</td>
-                </tr>
-                <tr><th>Email:</th>
-                  <td>{user.email}</td>
-                </tr>
+                <tr><th>Username:</th><td>{user.username}</td></tr>
+                <tr><th>Name:</th><td>{user.name}</td></tr>
+                <tr><th>Last name:</th><td>{user.lastName}</td></tr>
+                <tr><th>City:</th><td>{user.location.city}</td></tr>
+                <tr><th>Email:</th><td>{user.email}</td></tr>
               </tbody>
             </table>
           </Card.Body>
@@ -124,11 +120,7 @@ export default class Profile extends Component {
             <EditProfile
               show={profileFormShow}
               user={user}
-              handleProfileChange={
-    
-                  handleProfileChange
-              }
-              
+              handleProfileChange={handleProfileChange}
               onHide={() => this.setState({ profileFormShow: false })}
             />
           )}
