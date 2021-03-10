@@ -80,6 +80,25 @@ button a:visited {
   .modal-lg, .modal-xl {
     max-width: 350px;
 }
+.google-book-card h5{
+  font-size: 0.5em;
+}
+
+.google-book-card img{
+  max-width: 7em;
+}
+.google-book-card .col{
+  width: 7em;
+  margin: 0;
+}
+.google-book-card .card{
+  width: 7em;
+  margin: 0.3em 0;
+}
+.book-details{
+  display: flex;
+  flex-direction: column;
+}
 
 .hor-ver-2{
 justify-content: space-between;
@@ -152,3 +171,46 @@ h3 {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.google-book-card img{
+  max-width: 15em;
+}
+.google-book-card h5{
+  font-size: 1.2em;
+  margin: 0.2em 0;
+}
+
+.google-book-card .col{
+  max-width: 15em;
+  margin: 0;
+  padding: 0;
+}
+.google-book-card .card{
+  max-width: 15em;
+  margin: 0.5em 0;
+  padding: 0;
+}
+
+.google-book-card .card-body{
+  padding: 0.2em;
+}
+
+.book-details{
+   width:40rem,
+}
+
+.book-details .img{
+  width:12rem,
+}
+
+.book-details .card-body{
+  padding: 0.2em;
+}
+.book-details .card-text{
+  text-align: start;
+  padding: 0 0.3em;
+}
+ 
+
+
+

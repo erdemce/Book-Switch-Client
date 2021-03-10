@@ -79,14 +79,14 @@ export default class Profile extends Component {
         )}
         {showUploadPhotoForm && (
           <UploadPhotoForm
-            show={addFormShow}
+            show={showUploadPhotoForm}
             onHide={() => this.setState({ showUploadPhotoForm: false })}
             handlePhoto={handlePhoto}
           />
         )}
         <h2>Hello {user.name}! <br></br>Welcome to your profile</h2>
 
-        <Card className="text-center" style={{ width: "18rem" }}>
+        <Card className="text-center" style={{ width: "18rem", margin:"1em auto" }}>
           <Card.Img variant="top" src={user.photo} roundedCircle />
           <div>
             <img src="/assets/003-camera.png" style={{cursor: "pointer"}} onClick={() => this.setState({ showUploadPhotoForm: true })} alt="uploadphoto-icon"></img>

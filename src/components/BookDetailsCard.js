@@ -23,10 +23,10 @@ export default class BookDetailsCard extends Component {
         return (
             <CardDeck>
                     {showEditBookForm&&<BookForm show={showEditBookForm} onHide={this.onHide} book={book} handleAddorEditBook={handleEditBook}/> }
-                    <Card className="text-center" style={{ width: '18rem' }}>
-                        <Row>
+                    <Card className="text-center" >
+                        <Row className="book-details">
                         <Col>
-                        <Card.Img variant="top" src={book.photo} alt="book-cover" style={{ width: '10rem' }} />
+                        <Card.Img variant="top" src={book.photo} alt="book-cover"  />
                         </Col>
                         <Col>
                         <Card.Body>

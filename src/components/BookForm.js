@@ -1,8 +1,9 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
-import axios from "axios"
+import axios from "axios";
 
 function BookForm(props) {
+  const [photo, setPhoto] = useState("");
   const [title, setTitle] = useState(props.book.title);
   const [author, setAuthor] = useState(props.book.author);
   const [description, setDescription] = useState(props.book.description);
@@ -12,24 +13,21 @@ function BookForm(props) {
   const [fromGoogleList, setFromGooglelist] = useState([]);
 
   useEffect(() => {
-    
-    let search=(title)?title.split(" ").join("+"):""  
-    search=(author)?search+"+inauthor:"+author.split(" ").join("+"):search 
-    if(title||author){
-      setTimeout(()=>{
+    if (title || author) {
+      let query = title ? "/" + title : "";
+      query = author ? query + "/" + author : query;
+      setTimeout(() => {
         axios
-       .get("https://www.googleapis.com/books/v1/volumes?q="+search+"&key=AIzaSyA_ORxjOZYIfOleXQfby-GsQFgnfugueLc")
-        .then((response) => {
-          console.log(response.data)
-        setFromGooglelist(response.data.items)
-        })
-     }, 500)
-      
-      
-      
+          .get(`http://localhost:5005/api/book/search${query}`, {
+            withCredentials: true,
+          })
+          .then((response) => {
+            setFromGooglelist(response.data);
+          })
+          .catch(() => {});
+      }, 500);
     }
-    
-  }, [title, author])
+  }, [title, author]);
 
   return (
     <Modal
@@ -39,30 +37,49 @@ function BookForm(props) {
       centered
     >
       <Modal.Header closeButton>
-
-        <Modal.Title id="contained-modal-title-vcenter" className="google-book-card">
-          {fromGoogleList&&fromGoogleList
-            .filter((book, index) => index < 3)
-            .filter(book=>book.volumeInfo.imageLinks)
-            .filter(book=>book.volumeInfo.authors)
-            .map((book) => {
-              return(<a onClick={()=>{
-                setTitle(book.volumeInfo.title);
-                setAuthor(book.volumeInfo.authors[0])
-                setDescription(book.volumeInfo.description)
-                //setShowGoogle(false)
-              }}> 
-                <div className="google-book-card"><img
-                style={{width:"3em"}}
-                  src={book.volumeInfo.imageLinks.smallThumbnail}
-                  alt="book-cover"
-                ></img></div>
-                <h5>{book.volumeInfo.title}</h5>
-                <h5 className="text-muted">by {book.volumeInfo.authors.[0]}</h5>
-              </a>)
-            })}
-        </Modal.Title>
+        
       </Modal.Header>
+      <div className="google-book-card">
+          {fromGoogleList &&
+            fromGoogleList
+              .filter((book, index) => index < 3)
+              .filter((book) => book.volumeInfo.imageLinks)
+              .filter((book) => book.volumeInfo.authors)
+              .map((book) => {
+                let newTitle =
+                  book.volumeInfo.title.length > 15
+                    ? book.volumeInfo.title.slice(0, 15) + " ..."
+                    : book.volumeInfo.title;
+                return (
+                  <a
+                    onClick={() => {
+                      setTitle(book.volumeInfo.title);
+                      setAuthor(book.volumeInfo.authors[0]);
+                      setDescription(book.volumeInfo.description.slice(0,400));
+                      setCategory(book.volumeInfo.categories[0]);
+                      setPhoto(book.volumeInfo.imageLinks.thumbnail)
+                      //setShowGoogle(false)
+                    }}
+                  >
+                    <div class="col">
+                      <div class="card">
+                        <img
+                        
+                          src={book.volumeInfo.imageLinks.smallThumbnail}
+                          alt="book-cover"
+                        ></img>
+                        <div className="card-body">
+                          <h5>{newTitle}</h5>
+                          <h5 className="text-muted">
+                            by {book.volumeInfo.authors[0]}
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                );
+              })}
+        </div>
       <Modal.Body className="hor-ver-2">
         <Form
           onSubmit={(event) => {
@@ -73,10 +90,19 @@ function BookForm(props) {
           <Form.Group>
             <Form.Label>Title</Form.Label>
             <Form.Control
-              onChange={(e) =>setTitle(e.target.value)}  
+              onChange={(e) => setTitle(e.target.value)}
               value={title}
               name="title"
               required
+              type="text"
+              placeholder="Enter title"
+            />
+           
+            <Form.Control
+              
+              value={photo}
+              name="photo"
+              hidden
               type="text"
               placeholder="Enter title"
             />

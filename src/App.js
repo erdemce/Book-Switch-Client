@@ -51,12 +51,14 @@ class App extends Component {
     let photo = event.target.photo.files[0]
     let uploadForm = new FormData()
     uploadForm.append('imageUrl', photo)
+   
 
-    // axios.post(`http://localhost:5005/api/upload`, uploadForm)
-    // .then((response)=> {
+    axios.post(`http://localhost:5005/api/cloudinary/upload`, uploadForm)
+    .then((response)=> {
+      console.log(response.data)
     //   axios.post(`http://localhost:5005/api/auth/user`, {photo: response.data.photo, 
     //   withCredentials: true,
-    // })
+    })
     // .then((response) => {    
     //   this.setState({
     //     loggedInUser:response.data
@@ -68,9 +70,9 @@ class App extends Component {
     //   console.log("Something went wrong", err);
     // });
     // })
-    // .catch(()=> {
+    .catch(()=> {
 
-    // })
+    })
     }
 
   handleSignUp = (event) => {
@@ -159,9 +161,12 @@ class App extends Component {
     const title = event.target.title.value;
     const author = event.target.author.value;
     const description = event.target.description.value;
+    const photo = event.target.photo.value;
     const language = event.target.language.value;
     const category = event.target.category.value;
     const switchMode = event.target.switchMode.value;
+
+
 
     const editedBook={title, author,description,language,category,switchMode}
     
@@ -197,6 +202,7 @@ class App extends Component {
 
   handleAddBook = (event) => {
     event.preventDefault();
+    const photo = event.target.photo.value;
     const title = event.target.title.value;
     const author = event.target.author.value;
     const description = event.target.description.value;
@@ -204,7 +210,7 @@ class App extends Component {
     const category = event.target.category.value;
     const switchMode = event.target.switchMode.value;
 
-    const newBook={title, author,description,language,category,switchMode}
+    const newBook={title, author,description,language,category,photo,switchMode}
     
 
     axios

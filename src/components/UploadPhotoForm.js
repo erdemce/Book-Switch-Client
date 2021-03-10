@@ -3,7 +3,11 @@ import {Button, Modal, Form} from 'react-bootstrap'
 
 export default function UploadPhotoForm(props) {
     return (
-        <Modal>
+        <Modal
+      {...props}
+      size="sm"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered>
         <Modal.Header closeButton>
             <Modal.Title>Choose a photo to upload</Modal.Title>
         </Modal.Header>
