@@ -40,24 +40,27 @@ function BookForm(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {!props.book && <h2>Add a new book to your Library!</h2>}
-          {props.book && <h2>Edit your book from your Library!</h2>}
-        </Modal.Title>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {fromGoogleList
+
+        <Modal.Title id="contained-modal-title-vcenter" className="google-book-card">
+          {fromGoogleList&&fromGoogleList
             .filter((book, index) => index < 3)
             .filter(book=>book.volumeInfo.imageLinks)
+            .filter(book=>book.volumeInfo.authors)
             .map((book) => {
-              return(<div className="google-book-card">
-                <img
-                style={{width:"5em"}}
+              return(<a onClick={()=>{
+                setTitle(book.volumeInfo.title);
+                setAuthor(book.volumeInfo.authors[0])
+                setDescription(book.volumeInfo.description)
+                //setShowGoogle(false)
+              }}> 
+                <div className="google-book-card"><img
+                style={{width:"3em"}}
                   src={book.volumeInfo.imageLinks.smallThumbnail}
                   alt="book-cover"
-                ></img>
-                <h3>{book.volumeInfo.title}</h3>
-                {/* <h3 className="text-muted">by {book.volumeInfo.authors[0]}</h3> */}
-              </div>)
+                ></img></div>
+                <h5>{book.volumeInfo.title}</h5>
+                <h5 className="text-muted">by {book.volumeInfo.authors.[0]}</h5>
+              </a>)
             })}
         </Modal.Title>
       </Modal.Header>
