@@ -1,3 +1,4 @@
+import config from '../config'
 import React, { Component } from 'react'
 import { Button,Spinner} from 'react-bootstrap'
 import axios from "axios"
@@ -14,7 +15,7 @@ componentDidMount(){
 
 
     let bookId = this.props.match.params.bookId
-    axios.get(`http://localhost:5005/api/book/get/${bookId}`)
+    axios.get(`${config.API_URL}/api/book/get/${bookId}`)
       .then((response) => {
       
         this.setState({ book: response.data})

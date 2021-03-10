@@ -1,3 +1,4 @@
+import config from '../config'
 import React, { Component } from "react";
 import { Card, Spinner } from "react-bootstrap";
 import axios from "axios";
@@ -27,10 +28,10 @@ export default class Profile extends Component {
       let location = event.target.location.value 
       let _id=this.props.user._id
       let updatedUser = {username, name, lastName, location,_id}
-      // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
+      
 
       axios
-      .post(`http://localhost:5005/api/auth/user`, updatedUser, {
+      .post(`${config.API_URL}/api/auth/user`, updatedUser, {
         withCredentials: true,
       })
       .then((response) => {    

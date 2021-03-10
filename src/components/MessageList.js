@@ -1,3 +1,4 @@
+import config from '../config'
 import React, { Component } from 'react';
 import { Spinner} from 'react-bootstrap'
 import { Link } from "react-router-dom";
@@ -12,7 +13,7 @@ export default class MessageList extends Component {
 
         if (!this.state.loggedInUser) {
             axios
-              .get("http://localhost:5005/api/auth/user", { withCredentials: true })
+              .get(`${config.API_URL}/api/auth/user`, { withCredentials: true })
               .then((response) => {
                 this.setState({
                   loggedInUser: response.data,
@@ -21,7 +22,7 @@ export default class MessageList extends Component {
               .catch(() => {});
           }
         axios
-          .get("http://localhost:5005/api/message", { withCredentials: true })
+          .get(`${config.API_URL}/api/message`, { withCredentials: true })
           .then((response) => {
             this.setState({ messages: response.data});
           })

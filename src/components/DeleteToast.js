@@ -1,7 +1,10 @@
-function Example() {
-    const [show, setShow] = useState(false);
+
+        //FOR FUTURE
+// function Example() {
+//     const [show, setShow] = useState(false);
   
-    return (
+//     return (h1)}
+
 //         <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
 //             <Toast.Header>
 //               <img
@@ -17,7 +20,6 @@ function Example() {
     
 //           <Button onClick={() => setShow(true)}>Show Toast</Button>
         
-//     );
-//   }
+
   
 //   render(<Example />);

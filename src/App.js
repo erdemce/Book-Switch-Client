@@ -1,3 +1,4 @@
+import config from './config'
 import React, { Component } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -22,7 +23,7 @@ class App extends Component {
   componentDidMount() {
 
       axios
-        .get("http://localhost:5005/api/auth/user", { withCredentials: true })
+        .get(`${config.API_URL}/api/auth/user`, { withCredentials: true })
         .then((response) => {
           this.setState(
             {
@@ -31,7 +32,7 @@ class App extends Component {
             () => {
               axios
                 .get(
-                  `http://localhost:5005/api/book/user/${this.state.loggedInUser._id}`
+                  `${config.API_URL}/api/book/user/${this.state.loggedInUser._id}`
                 )
                 .then((response) => {
                   this.setState(
@@ -53,10 +54,10 @@ class App extends Component {
     uploadForm.append('imageUrl', photo)
    
 
-    axios.post(`http://localhost:5005/api/cloudinary/upload`, uploadForm)
+    axios.post(process.env.REACT_APP_SERVER_URL+"/api/cloudinary/upload", uploadForm)
     .then((response)=> {
       console.log(response.data)
-    //   axios.post(`http://localhost:5005/api/auth/user`, {photo: response.data.photo, 
+    //   axios.post(process.env.REACT_APP_SERVER_URL+"api/auth/user`, {photo: response.data.photo, 
     //   withCredentials: true,
     })
     // .then((response) => {    
@@ -86,7 +87,7 @@ class App extends Component {
     let user = { username, name, lastName, email, password, location };
 
     axios
-      .post("http://localhost:5005/api/auth/signup", user, {
+      .post(`${config.API_URL}/api/auth/signup`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -113,7 +114,7 @@ class App extends Component {
     };
 
     axios
-      .post("http://localhost:5005/api/auth/login", user, {
+      .post(`${config.API_URL}/api/auth/login`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -134,7 +135,7 @@ class App extends Component {
   handleLogout = () => {
     axios
       .post(
-        "http://localhost:5005/api/auth/logout",
+        `${config.API_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       )
@@ -172,7 +173,7 @@ class App extends Component {
     
 
     axios
-      .post(`http://localhost:5005/api/book/edit/${id}`, editedBook, {
+      .post(`${config.API_URL}/api/book/edit/${id}`, editedBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -214,7 +215,7 @@ class App extends Component {
     
 
     axios
-      .post(`http://localhost:5005/api/book/add`, newBook, {
+      .post(`${config.API_URL}/api/book/add`, newBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -230,7 +231,7 @@ class App extends Component {
 
   handleDelete = (bookId) => {
     
-      axios.delete(`http://localhost:5005/api/book/delete/${bookId}`,{
+      axios.delete(`${config.API_URL}/api/book/delete/${bookId}`,{
         withCredentials: true,
       })
         .then(() => {
@@ -259,7 +260,7 @@ class App extends Component {
     let _id=this.state.loggedInUser._id
     let updatedUser = {username, name, lastName, location,_id}
     // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
-    axios.post(`http://localhost:5005/api/auth/user`, updatedUser, {
+    axios.post(`${config.API_URL}/api/auth/user`, updatedUser, {
       withCredentials: true,
     })
     .then((response) => {    
