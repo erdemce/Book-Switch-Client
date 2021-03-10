@@ -17,7 +17,7 @@ export default class BookList extends Component {
     console.log(process.env.REACT_APP_SERVER_URL)
   
     axios
-      .get(`ggg/api/book`)
+      .get(`${process.env.REACT_APP_SERVER_URL}/api/book`)
       .then((response) => {
         this.setState({ books: response.data, filtered: response.data });
       })
