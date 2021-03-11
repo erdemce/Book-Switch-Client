@@ -13,7 +13,7 @@ export default class BookDetailsCard extends Component {
 
     onHide=()=>{
  
-        this.setState({showEditBookForm:false})
+        this.setState({showEditBookForm:false,showTextArea:false })
     }
     render() {
 
@@ -42,7 +42,9 @@ export default class BookDetailsCard extends Component {
                         <div><small className="text-muted">City: {book.owner.location.city}</small></div>
                         </Card.Footer>
                         {showTextArea&&(
-                            <form id="userform" class="center" method="POST" action="/sendmessage/{{data.toy._id}}">
+                            <form id="userform" class="center" onSubmit={(event)=> {
+                                this.onHide();
+                                handleSendRequest(event)}}>
                             <textarea name="text" form="userform" cols="60" rows="4" placeholder="Enter your message here..."></textarea>
                             <button type="submit" class="btn btn-primary btn-del">Send</button>
                         </form>

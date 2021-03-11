@@ -39,14 +39,7 @@ handleSendRequest=(event)=>{
         withCredentials: true,
       })
       .then((response) => {
-        this.setState({ book: response.data})
-        Toast.show({
-            text1:"Your message has been sent",
-            type:success,
-            visibilityTime: 4000,
-            autoHide: true,
-
-        })
+       
       })
       .catch((response) => {
     
