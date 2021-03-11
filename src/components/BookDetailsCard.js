@@ -21,6 +21,7 @@ export default class BookDetailsCard extends Component {
 
         const{showEditBookForm, showTextArea}=this.state
         const { book,user, handleDelete, handleEditBook, handleSendRequest } = this.props;
+        let switchMode=book.switchMode[0].toUpperCase()+book.switchMode.slice(1)
 
         return (
             <CardDeck className="body-width">
@@ -37,7 +38,7 @@ export default class BookDetailsCard extends Component {
                         <Card.Text>{book.description}</Card.Text>
                         <Card.Text>Language: {book.language}</Card.Text>
                         <Card.Text>Category: {book.category}</Card.Text>
-                        <Card.Text >Switch Mode: {book.switchMode}</Card.Text>
+                        <Card.Text >Switch Mode: {switchMode}</Card.Text>
                         <Card.Text >City: {book.owner.location.city}</Card.Text>
                         </Card.Body>
                         <Card.Footer>

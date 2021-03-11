@@ -7,7 +7,7 @@ export default class BookCard extends Component {
 
         const {book} =this.props
 
-
+        let switchMode=book.switchMode[0].toUpperCase()+book.switchMode.slice(1)
         let link="/book/"+book._id
 
         return (
@@ -23,7 +23,7 @@ export default class BookCard extends Component {
                   <Card.Title>{book.author}</Card.Title>
                   <Card.Text>{book.language}</Card.Text>
 
-                  <Card.Text>{book.switchMode}</Card.Text>
+                  <Card.Text>{switchMode}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
                   <small classNameName="text-muted">{book.owner.location?.city}</small>

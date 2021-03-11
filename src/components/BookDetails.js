@@ -56,9 +56,9 @@ handleSendRequest=(event)=>{
         
         if(!book||!user){
             return <>
-            <Spinner animation="border" variant="primary" />
             <Spinner animation="border" variant="secondary" />
-            <Spinner animation="border" variant="success" />
+            <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="secondary" />
             
           </>
           }

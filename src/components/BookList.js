@@ -62,9 +62,9 @@ export default class BookList extends Component {
 
     if(books.length===0 ){
       return <>
-      <Spinner animation="border" variant="primary" />
-      <Spinner animation="border" variant="secondary" />
-      <Spinner animation="border" variant="success" />
+       <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="secondary" />
   
     </>
     }

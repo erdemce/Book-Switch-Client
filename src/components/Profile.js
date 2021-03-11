@@ -59,11 +59,9 @@ export default class Profile extends Component {
     if (!user) {
       return (
         <>
-          <Spinner animation="border" variant="secondary" />
-          <Spinner animation="border" variant="light" />
-          <Spinner animation="grow" variant="primary" />
-          <Spinner animation="grow" variant="secondary" />
-          <Spinner animation="grow" variant="light" />
+         <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="secondary" />
         </>
       );
     }

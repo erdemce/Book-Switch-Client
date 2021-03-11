@@ -10,14 +10,14 @@ function WelcomePage(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+      <Modal.Header  style={{ padding:"0.4em 0.4em",  textAlign: "center" } } closeButton>
+        <Modal.Title  id="contained-modal-title-vcenter">
           <h2>Welcome to Book Switch!</h2>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="hor-ver-2">
+      <Modal.Body  className="hor-ver-2">
         <Card.Img
-          style={{ width: "270px" }}
+          className="modal-img"
           src="assets/welcomepage.jpg"
           alt="Card image"
         />

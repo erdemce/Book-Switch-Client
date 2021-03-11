@@ -37,12 +37,9 @@ export default class MessageList extends Component {
       const{messages,loggedInUser}=this.state
       if(!messages||!loggedInUser){
         return <>
-        <Spinner animation="border" variant="primary" />
         <Spinner animation="border" variant="secondary" />
-        <Spinner animation="border" variant="success" />
-        <Spinner animation="grow" variant="primary" />
-        <Spinner animation="grow" variant="secondary" />
-        <Spinner animation="grow" variant="success" />
+            <Spinner animation="border" variant="secondary" />
+            <Spinner animation="border" variant="secondary" />
       </>
       }
 
