@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Spinner} from 'react-bootstrap'
 import axios from "axios"
-import Toast from 'react-native-toast-message';
 
 export default class BookDetails extends Component {
 
