@@ -7,7 +7,7 @@ export default class FooterBar extends Component {
         <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'></link>
         return (
             <div >
-              <div className="container-fluid pb-0 mb-0 justify-content-center">
+              <div className="container-fluid pb-0 mb-0 justify-content-center ">
                 <footer>
                     <div className="row justify-content-center py-5">
                             <div className="col-xl-8 col-sm-4 mb-2 my-auto mx-auto a">

@@ -12,14 +12,19 @@ import LogInForm from "./components/LogInForm";
 import axios from "axios";
 import MessageList from "./components/MessageList";
 import MessagesDetails from "./components/MessagesDetails"
-import Boundry from './components/ErrorBoundry';
 import ErrorBoundry from './components/ErrorBoundry';
+
+
+
 
 class App extends Component {
   state = {
     loggedInUser: "",
-    isNewUser: true,
-    userLibrary:[]
+    nouser:true,
+
+    userLibrary:[],
+    error:null
+
   };
 
   componentDidMount() {
@@ -29,6 +34,7 @@ class App extends Component {
         .then((response) => {
           this.setState(
             {
+              nouser:false,
               loggedInUser: response.data,
             },
             () => {
@@ -46,8 +52,8 @@ class App extends Component {
             }
           );
         })
-        .catch(() => {
-          
+        .catch((error) => {
+          this.setState({nouser:true})
         });
     }
 
@@ -56,28 +62,42 @@ class App extends Component {
     let photo = event.target.photo.files[0]
     let uploadForm = new FormData()
     uploadForm.append('imageUrl', photo)
-   
+    
+    
 
-    axios.post("/api/cloudinary/upload", uploadForm)
+    axios.post(`${config.API_URL}/api/cloudinary/upload`, uploadForm)
     .then((response)=> {
-      console.log(response.data)
-    //   axios.post("api/auth/user`, {photo: response.data.photo, 
-    //   withCredentials: true,
-    })
-    // .then((response) => {    
-    //   this.setState({
-    //     loggedInUser:response.data
-    //   },() => {
-    //     this.props.history.push(`/profile`);
-    //   })
-    // })    
-    // .catch((err) => {
-    //   console.log("Something went wrong", err);
-    // });
-    // })
-    .catch(()=> {
-
-    })
+      let photo=response.data.photo
+      let updatedUser = {
+        _id:this.state.loggedInUser._id,
+        username:this.state.loggedInUser.username,
+        name:this.state.loggedInUser.name,
+        lastName:this.state.loggedInUser.lastName,
+        location:this.state.loggedInUser.location._id,
+        photo}
+        axios.post(`${config.API_URL}/api/auth/user`, updatedUser, {
+          withCredentials: true,
+        })
+        .then((response) => {    
+          this.setState({
+            loggedInUser:response.data
+          },() => {
+            this.props.history.push(`/profile`);
+          })
+        })    
+        .catch((error) => {
+          this.setState({
+            error:error
+          },()=>this.props.history.push(`/err`))
+          
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          error:error
+        },()=>this.props.history.push(`/err`))
+        
+      });
     }
 
   handleSignUp = (event) => {
@@ -98,15 +118,18 @@ class App extends Component {
         this.setState(
           {
             loggedInUser: response.data,
-            isNewUser: true,
+        
           },
           () => {
             this.props.history.push("/");
           }
         );
       })
-      .catch((err) => {
-        throw new Error('Erdem Changed the Code!');
+      .catch((error) => {
+        this.setState({
+          error:error
+        },()=>this.props.history.push(`/err`))
+        
       });
   };
 
@@ -131,8 +154,11 @@ class App extends Component {
           }
         );
       })
-      .catch((err) => {
-        console.log("Something went wrong", err);
+      .catch((error) => {
+        this.setState({
+          error:error
+        },()=>this.props.history.push(`/err`))
+        
       });
   };
 
@@ -155,11 +181,6 @@ class App extends Component {
       });
   };
 
-  handleFirstEdit = (event) => {
-    // this.setState({ isNewUser: false }, () => {
-    //   this.props.history.push("/profile");
-    // });
-  };
 
   handleEditBook = (id,event) => {
     event.preventDefault();
@@ -200,9 +221,12 @@ class App extends Component {
     }
             
       )
-      .catch((err) => {
-        console.log("Something went wrong", err);
-      }); 
+      .catch((error) => {
+        this.setState({
+          error:error
+        },()=>this.props.history.push(`/err`))
+        
+      });
   };
 
   handleAddBook = (event) => {
@@ -228,9 +252,12 @@ class App extends Component {
           userLibrary:[responseBook, ...this.state.userLibrary]
         })  
     })
-      .catch((err) => {
-        console.log("Something went wrong", err);
-      }); 
+    .catch((error) => {
+      this.setState({
+        error:error
+      },()=>this.props.history.push(`/err`))
+      
+    });
   };
 
   handleDelete = (bookId) => {
@@ -255,6 +282,8 @@ class App extends Component {
         })
    }
 
+
+
    handleProfileChange = (event) => {
     event.preventDefault();
     let username = event.target.username.value
@@ -262,7 +291,8 @@ class App extends Component {
     let lastName = event.target.lastName.value
     let location = event.target.location.value 
     let _id=this.state.loggedInUser._id
-    let updatedUser = {username, name, lastName, location,_id}
+    let photo=this.state.loggedInUser.photo
+    let updatedUser = {username, name, lastName, location,_id, photo}
 
     axios.post(`${config.API_URL}/api/auth/user`, updatedUser, {
       withCredentials: true,
@@ -274,8 +304,11 @@ class App extends Component {
         this.props.history.push(`/profile`);
       })
     })    
-    .catch((err) => {
-      console.log("Something went wrong", err);
+    .catch((error) => {
+      this.setState({
+        error:error
+      },()=>this.props.history.push(`/err`))
+      
     });
   }
 
@@ -288,30 +321,17 @@ class App extends Component {
           handleSignUp={this.handleSignUp}
           user={this.state.loggedInUser}
         />
-        {this.state.isNewUser && (
+        {!this.state.loggedInUser && (
           <Welcome handleFirstEdit={this.handleFirstEdit} />
         )}
 
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={(routeProps) => {
-              return <ErrorBoundry><BookList {...routeProps} /></ErrorBoundry>;
-            }}
-          />
-          <Route
-            exact
-            path="/messages"
-            render={(routeProps) => {
-              return <MessageList {...routeProps} />;
-            }}
-          />
-          <Route
+
+        <Route
             path="/signup"
             render={(routeProps) => {
               return (
-                <ErrorBoundry><SignUpForm handleSubmit={this.handleSignUp} {...routeProps} /></ErrorBoundry>
+                <SignUpForm handleSubmit={this.handleSignUp} {...routeProps} />
               );
             }}
           />
@@ -323,7 +343,18 @@ class App extends Component {
               );
             }}
           />
+
+
+          
           <Route
+            exact
+            path="/"
+            render={(routeProps) => {
+              return <BookList {...routeProps} />
+            }}
+          />
+
+<Route
             path="/book/:bookId"
             render={(routeProps) => {
               return (
@@ -336,13 +367,27 @@ class App extends Component {
               );
             }}
           />
+
+       
+        
+            <Route
+            exact
+            path="/messages"
+            render={(routeProps) => {
+              return <MessageList {...routeProps} />;
+            }}
+          />
+          
+       
           <Route
             path="/messages/:contactId"
             render={(routeProps) => {
               return <MessagesDetails {...routeProps} />;
             }}
           />
+           
           <Route
+          exact
             path="/profile"
             render={(routeProps) => {
               return (
@@ -359,11 +404,22 @@ class App extends Component {
               );
             }}
           />
+          
+          
+          
+          
+
+          <Route
+            path="/error"
+            render={(routeProps) => {
+              return <ErrorBoundry error={this.state.error} {...routeProps} />;
+            }}
+          />
+          <Route component={ErrorBoundry}/>
         </Switch>
         <FooterBar />
       </div>
     );
   }
 }
-
 export default withRouter(App);

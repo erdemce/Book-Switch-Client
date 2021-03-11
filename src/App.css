@@ -66,6 +66,10 @@ button a:visited {
 .hor-ver-2 p{
   max-width: 350px;
   margin: 1em;
+  font-size: 1em;
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+
 }
 
 .modal-lg, .modal-xl {
@@ -127,8 +131,12 @@ h1 {
   color: #5930c9
 }
 
-.logo span {
+.logo span, .cl-2 {
   color: #0062F2
+}
+
+.cl-1 {
+  color: #5930c9; 
 }
 
 .logo {

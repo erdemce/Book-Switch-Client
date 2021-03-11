@@ -1,40 +1,24 @@
 import React, { Component } from 'react'
+import {Card} from 'react-bootstrap'
 
 export default class ErrorBoundry extends Component {
 
-  state={
-    hasError:false,
-    error:null,
-    errorMessage:null
-  }
 
-  
-      
-      componentDidCatch(error, errorInfo) {
-        // Catch errors in any components below and re-render with error message
-        this.setState({
-          hasError:true,
-          error,
-          errorInfo
-        })
-        // You can also log error messages to an error reporting service here
-      }
-      render() {
-        if (this.state.hasError) {
-          // Error path
-          return (
-            <div>
-              <h2>Something went wrong.</h2>
-              <details style={{ whiteSpace: 'pre-wrap' }}>
-                {this.state.error && this.state.error.toString()}
-                <br />
-                {this.state.errorInfo.componentStack}
-              </details>
-            </div>
-          );
-        }
-        // Normally, just render children
-        return this.props.children;
-      }  
+
+    render() {
+        let message=(this.props.error)?this.props.error.massage:"Uh oh, we can’t seem to find the page you’re looking for. Try going back to the previous page"
+        return (
+            <Card className="bg-dark text-white body-width">
+                <Card.Img src="/assets/404page.jpg" alt="Card image"/>
+                <Card.ImgOverlay>
+                    <Card.Title><h1>Error Found</h1></Card.Title>
+                    <Card.Text >
+                  {message}
+                    </Card.Text>
+                    <Card.Text>Our apologies for the inconvenience.</Card.Text>
+                </Card.ImgOverlay>
+            </Card>
+            
+        )
     }
-
+}

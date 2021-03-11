@@ -64,7 +64,7 @@ handleSendRequest=(event)=>{
           }
           const link=`/messages/`+book.owner._id
 
-        return (<BookDetailsCard className="body-width" book={book} user={user} handleDelete={handleDelete} handleEditBook={handleEditBook} handleSendRequest={this.handleSendRequest} />
+        return (<BookDetailsCard  book={book} user={user} handleDelete={handleDelete} handleEditBook={handleEditBook} handleSendRequest={this.handleSendRequest} />
        
                   
               

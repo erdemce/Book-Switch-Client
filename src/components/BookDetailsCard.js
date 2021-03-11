@@ -10,18 +10,20 @@ export default class BookDetailsCard extends Component {
         showEditBookForm:false,
     }
 
+  
     onHide=()=>{
  
         this.setState({showEditBookForm:false,showTextArea:false })
     }
     render() {
+        
 
 
         const{showEditBookForm, showTextArea}=this.state
         const { book,user, handleDelete, handleEditBook, handleSendRequest } = this.props;
 
         return (
-            <CardDeck>
+            <CardDeck className="body-width">
                     {showEditBookForm&&<BookForm show={showEditBookForm} onHide={this.onHide} book={book} handleAddorEditBook={handleEditBook}/> }
                     <Card className="text-center" >
                         <Row className="book-details">
@@ -36,7 +38,7 @@ export default class BookDetailsCard extends Component {
                         <Card.Text>Language: {book.language}</Card.Text>
                         <Card.Text>Category: {book.category}</Card.Text>
                         <Card.Text >Switch Mode: {book.switchMode}</Card.Text>
-                        <Card.Text >City: {book.owner.location?.city}</Card.Text>
+                        <Card.Text >City: {book.owner.location.city}</Card.Text>
                         </Card.Body>
                         <Card.Footer>
                         
@@ -52,6 +54,7 @@ export default class BookDetailsCard extends Component {
                         )}
                         
                         <div>
+                        {console.log("user:",user,"book:",book)}
                         { (user._id===book.owner._id)&&(<img onClick={()=>this.setState({showEditBookForm:true})} style={{cursor: "pointer"}} src='/assets/008-edition.png' alt="editbook-icon" ></img>)}
                         { (user._id===book.owner._id)&&(<img onClick={handleDelete} src='/assets/032-delete-4.png' style={{cursor: "pointer"}} alt="deletebook-icon"></img>)}
                         { (user._id!==book.owner._id)&&(<Button onClick={()=>this.setState({showTextArea:true})}>Request Switch</Button>)} 
