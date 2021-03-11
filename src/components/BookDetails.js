@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Spinner} from 'react-bootstrap'
 import axios from "axios"
+import BookDetailsCard from './BookDetailsCard'
 
 export default class BookDetails extends Component {
 
@@ -32,7 +33,7 @@ handleSendRequest=(event)=>{
     const{book}=this.state
 
      
-  const newMessage={text, bookRelated:book._id, between: [user.id,book.owner._id ]}
+  const newMessage={text, bookRelated:book._id, between: [this.props.user._id,book.owner._id ]}
 
     axios.post(`/api/message`, newMessage, {
         withCredentials: true,

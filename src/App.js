@@ -236,7 +236,7 @@ class App extends Component {
         .then(() => {
            
             let filteredBooks = this.state.userLibrary.filter((book) => {
-              console.log(bookId,"from map",book._id)
+      
               return book._id !== bookId
             })
             this.setState({
@@ -258,7 +258,7 @@ class App extends Component {
     let location = event.target.location.value 
     let _id=this.state.loggedInUser._id
     let updatedUser = {username, name, lastName, location,_id}
-    // let cloneUser = JSON.parse(JSON.stringify(this.props.user))
+
     axios.post(`/api/auth/user`, updatedUser, {
       withCredentials: true,
     })
