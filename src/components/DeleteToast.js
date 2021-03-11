@@ -1,22 +1,22 @@
-
+import {Toast} from 'react-bootstrap'
       
-// function Example(props) {
-//     const [show, setShow] = useState(false);
+function DeleteToast(props) {
+    const [show, setToastShow] = useState(false);
   
-//     return (h1)}
+    return (
+        <Toast onClose={() => setToastShow(false)} show={show} delay={3000} autohide>
+            <Toast.Header>
+              <img src="/assets/033-delete-5.png" className="rounded mr-2"
+                alt="deleteicon"
+              />
+              <strong className="mr-auto">Delete Book</strong>
+            </Toast.Header>
+            <Toast.Body>You're about to delete this book from your library. Are you sure?
 
-//         <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
-//             <Toast.Header>
-//               <img
-//                 src="holder.js/20x20?text=%20"
-//                 className="rounded mr-2"
-//                 alt=""
-//               />
-//               <strong className="mr-auto">Bootstrap</strong>
-//               <small>11 mins ago</small>
-//             </Toast.Header>
-//             <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
-//         </Toast>
+            </Toast.Body>
+        </Toast>
     
-//           <Button onClick={() => setShow(true)}>Show Toast</Button>
-        
+    )
+}
+
+export default DeleteToast

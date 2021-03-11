@@ -52,7 +52,8 @@ export default class BookDetailsCard extends Component {
                         
                         <div>
                         { (user._id===book.owner._id)&&(<img onClick={()=>this.setState({showEditBookForm:true})} style={{cursor: "pointer"}} src='/assets/008-edition.png' alt="editbook-icon" ></img>)}
-                        { (user._id===book.owner._id)&&(<img onClick={handleDelete} src='/assets/032-delete-4.png' style={{cursor: "pointer"}} alt="deletebook-icon"></img>)}
+                        { (user._id===book.owner._id)&&(<OverlayTrigger placement="right" delay={{ show: 200, hide: 400 }} overlay={<Tooltip id="button-tooltip">
+    Delete this book? </Tooltip>}> <img onClick={handleDelete} src='/assets/032-delete-4.png' style={{cursor: "pointer"}} alt="deletebook-icon"></img></OverlayTrigger>)}
                         { (user._id!==book.owner._id)&&(<Button onClick={()=>this.setState({showTextArea:true})}>Request Switch</Button>)} 
                         </div>
 
