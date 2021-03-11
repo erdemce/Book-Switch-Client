@@ -21,11 +21,12 @@ export default class BookCard extends Component {
                 <Card.Body>
                   <Card.Title>{book.title}</Card.Title>
                   <Card.Title>{book.author}</Card.Title>
+                  <Card.Text>{book.language}</Card.Text>
 
-                  <Card.Text>{book.description}</Card.Text>
+                  <Card.Text>{book.switchMode}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small classNameName="text-muted">{book.owner.city}</small>
+                  <small classNameName="text-muted">{book.owner.location.city}</small>
                 </Card.Footer>
               </Card>
               </Link>

@@ -49,7 +49,7 @@ handleSendRequest=(event)=>{
 
 }
     render() {
-        const {book,handleSendRequest} = this.state
+        const {book} = this.state
         const {user, handleDelete, handleEditBook}=this.props
 
         
@@ -63,7 +63,7 @@ handleSendRequest=(event)=>{
           }
           const link=`/messages/`+book.owner._id
 
-        return (<BookDetailsCard book={book} user={user} handleDelete={handleDelete} handleEditBook={handleEditBook} handleSendRequest={handleSendRequest} />
+        return (<BookDetailsCard book={book} user={user} handleDelete={handleDelete} handleEditBook={handleEditBook} handleSendRequest={this.handleSendRequest} />
        
                   
               
