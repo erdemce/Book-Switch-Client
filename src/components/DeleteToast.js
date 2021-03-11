@@ -1,6 +1,6 @@
 
-        //FOR FUTURE
-// function Example() {
+      
+// function Example(props) {
 //     const [show, setShow] = useState(false);
   
 //     return (h1)}
@@ -20,6 +20,3 @@
     
 //           <Button onClick={() => setShow(true)}>Show Toast</Button>
         
-
-  
-//   render(<Example />);

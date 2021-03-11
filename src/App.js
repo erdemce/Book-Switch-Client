@@ -11,6 +11,7 @@ import LogInForm from "./components/LogInForm";
 import axios from "axios";
 import MessageList from "./components/MessageList";
 import MessagesDetails from "./components/MessagesDetails";
+import Toast from 'react-native-toast-message';
 
 class App extends Component {
   state = {
@@ -286,6 +287,8 @@ class App extends Component {
         {this.state.isNewUser && (
           <Welcome handleFirstEdit={this.handleFirstEdit} />
         )}
+
+        <Toast ref={(ref) => Toast.setRef(ref)} />
         <Switch>
           <Route
             exact
