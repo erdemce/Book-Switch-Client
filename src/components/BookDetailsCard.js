@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Card,  Button, CardDeck, Row, Col} from 'react-bootstrap'
 import BookForm from './BookForm'
-import Toast from 'react-native-toast-message';
 
 
 export default class BookDetailsCard extends Component {
