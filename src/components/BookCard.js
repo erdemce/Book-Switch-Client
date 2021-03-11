@@ -26,7 +26,7 @@ export default class BookCard extends Component {
                   <Card.Text>{book.switchMode}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small classNameName="text-muted">{book.owner.location.city}</small>
+                  <small classNameName="text-muted">.....</small>
                 </Card.Footer>
               </Card>
               </Link>

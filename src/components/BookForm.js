@@ -1,4 +1,4 @@
-
+import config from '../config'
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
@@ -19,7 +19,7 @@ function BookForm(props) {
       query = author ? query + "/" + author : query;
       setTimeout(() => {
         axios
-          .get(`/api/book/search${query}`, {
+          .get(`${config.API_URL}/api/book/search${query}`, {
             withCredentials: true,
           })
           .then((response) => {

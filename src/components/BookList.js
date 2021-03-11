@@ -1,4 +1,4 @@
-
+import config from '../config'
 import React, { Component } from "react";
 import { Button,Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -17,7 +17,7 @@ export default class BookList extends Component {
    
   
     axios
-      .get(`/api/book`)
+      .get(`${config.API_URL}/api/book`)
       .then((response) => {
         this.setState({ books: response.data, filtered: response.data });
       })

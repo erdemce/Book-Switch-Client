@@ -1,3 +1,4 @@
+import config from '../config'
 import React, { Component } from 'react'
 import { Spinner} from 'react-bootstrap'
 import axios from "axios"
@@ -12,7 +13,7 @@ componentDidMount(){
 
 
     let bookId = this.props.match.params.bookId
-    axios.get(`/api/book/get/${bookId}`)
+    axios.get(`${config.API_URL}/api/book/get/${bookId}`)
       .then((response) => {
       
         this.setState({ book: response.data})
@@ -35,7 +36,7 @@ handleSendRequest=(event)=>{
      
   const newMessage={text, bookRelated:book._id, between: [this.props.user._id,book.owner._id ]}
 
-    axios.post(`/api/message`, newMessage, {
+    axios.post(`${config.API_URL}/api/message`, newMessage, {
         withCredentials: true,
       })
       .then((response) => {
@@ -63,7 +64,7 @@ handleSendRequest=(event)=>{
           }
           const link=`/messages/`+book.owner._id
 
-        return (<BookDetailsCard book={book} user={user} handleDelete={handleDelete} handleEditBook={handleEditBook} handleSendRequest={this.handleSendRequest} />
+        return (<BookDetailsCard className="body-width" book={book} user={user} handleDelete={handleDelete} handleEditBook={handleEditBook} handleSendRequest={this.handleSendRequest} />
        
                   
               

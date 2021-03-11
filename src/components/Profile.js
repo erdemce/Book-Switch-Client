@@ -1,4 +1,4 @@
-
+import config from '../config'
 import React, { Component } from "react";
 import { Card, Spinner } from "react-bootstrap";
 import axios from "axios";
@@ -31,7 +31,7 @@ export default class Profile extends Component {
       
 
       axios
-      .post(`/api/auth/user`, updatedUser, {
+      .post(`${config.API_URL}/api/auth/user`, updatedUser, {
         withCredentials: true,
       })
       .then((response) => {    

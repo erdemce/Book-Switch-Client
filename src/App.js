@@ -1,3 +1,4 @@
+import config from './config'
 import React, { Component } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -22,7 +23,7 @@ class App extends Component {
   componentDidMount() {
 
       axios
-        .get(`/api/auth/user`, { withCredentials: true })
+        .get(`${config.API_URL}/api/auth/user`, { withCredentials: true })
         .then((response) => {
           this.setState(
             {
@@ -31,7 +32,7 @@ class App extends Component {
             () => {
               axios
                 .get(
-                  `/api/book/user/${this.state.loggedInUser._id}`
+                  `${config.API_URL}/api/book/user/${this.state.loggedInUser._id}`
                 )
                 .then((response) => {
                   this.setState(
@@ -86,7 +87,7 @@ class App extends Component {
     let user = { username, name, lastName, email, password, location };
 
     axios
-      .post(`/api/auth/signup`, user, {
+      .post(`${config.API_URL}/api/auth/signup`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -113,7 +114,7 @@ class App extends Component {
     };
 
     axios
-      .post(`/api/auth/login`, user, {
+      .post(`${config.API_URL}/api/auth/login`, user, {
         withCredentials: true,
       })
       .then((response) => {
@@ -134,7 +135,7 @@ class App extends Component {
   handleLogout = () => {
     axios
       .post(
-        `/api/auth/logout`,
+        `${config.API_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       )
@@ -172,7 +173,7 @@ class App extends Component {
     
 
     axios
-      .post(`/api/book/edit/${id}`, editedBook, {
+      .post(`${config.API_URL}/api/book/edit/${id}`, editedBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -214,7 +215,7 @@ class App extends Component {
     
 
     axios
-      .post(`/api/book/add`, newBook, {
+      .post(`${config.API_URL}/api/book/add`, newBook, {
         withCredentials: true,
       })
       .then((response) => {
@@ -230,7 +231,7 @@ class App extends Component {
 
   handleDelete = (bookId) => {
     
-      axios.delete(`/api/book/delete/${bookId}`,{
+      axios.delete(`${config.API_URL}/api/book/delete/${bookId}`,{
         withCredentials: true,
       })
         .then(() => {
@@ -259,7 +260,7 @@ class App extends Component {
     let _id=this.state.loggedInUser._id
     let updatedUser = {username, name, lastName, location,_id}
 
-    axios.post(`/api/auth/user`, updatedUser, {
+    axios.post(`${config.API_URL}/api/auth/user`, updatedUser, {
       withCredentials: true,
     })
     .then((response) => {    
