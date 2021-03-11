@@ -35,10 +35,11 @@ export default class BookDetailsCard extends Component {
                         <Card.Text>{book.description}</Card.Text>
                         <Card.Text>Language: {book.language}</Card.Text>
                         <Card.Text>Category: {book.category}</Card.Text>
+                        <Card.Text >Switch Mode: {book.switchMode}</Card.Text>
+                        <Card.Text >City: {book.owner.location?.city}</Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                        <div><small className="text-muted">Switch Mode: {book.switchMode}</small></div>
-                        <div><small className="text-muted">City: {book.owner.location?.city}</small></div>
+                        
                         </Card.Footer>
                         {showTextArea&&(
                             <form id="userform" class="center" onSubmit={(event)=> {

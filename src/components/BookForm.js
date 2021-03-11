@@ -1,4 +1,4 @@
-import config from '../config'
+import config from "../config";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
@@ -37,50 +37,47 @@ function BookForm(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <div className="google-book-card">
-          {fromGoogleList &&
-            fromGoogleList
-              .filter((book, index) => index < 3)
-              .filter((book) => book.volumeInfo.imageLinks)
-              .filter((book) => book.volumeInfo.authors)
-              .map((book) => {
-                let newTitle =
-                  book.volumeInfo.title.length > 15
-                    ? book.volumeInfo.title.slice(0, 15) + "..."
-                    : book.volumeInfo.title;
-                return (
-                  <a
-                    onClick={() => {
-                      setTitle(book.volumeInfo.title);
-                      setAuthor(book.volumeInfo.authors[0]);
-                      setDescription(book.volumeInfo.description.slice(0,400));
-                      setCategory(book.volumeInfo.categories[0]);
-                      setPhoto(book.volumeInfo.imageLinks.thumbnail)
-                      //setShowGoogle(false)
-                    }}
-                  >
-                    <div class="col">
-                      <div class="card">
-                        <img
-                        
-                          src={book.volumeInfo.imageLinks.smallThumbnail}
-                          alt="book-cover"
-                        ></img>
-                        <div className="card-body">
-                          <h5>{newTitle}</h5>
-                          <h5 className="text-muted">
-                            by {book.volumeInfo.authors[0]}
-                          </h5>
-                        </div>
+        {fromGoogleList &&
+          fromGoogleList
+            .filter((book, index) => index < 3)
+            .filter((book) => book.volumeInfo.imageLinks)
+            .filter((book) => book.volumeInfo.authors)
+            .map((book) => {
+              let newTitle =
+                book.volumeInfo.title.length > 15
+                  ? book.volumeInfo.title.slice(0, 15) + "..."
+                  : book.volumeInfo.title;
+              return (
+                <a
+                  onClick={() => {
+                    setTitle(book.volumeInfo.title);
+                    setAuthor(book.volumeInfo.authors[0]);
+                    setDescription(book.volumeInfo.description.slice(0, 400));
+                    setCategory(book.volumeInfo.categories[0]);
+                    setPhoto(book.volumeInfo.imageLinks.thumbnail);
+                    //setShowGoogle(false)
+                  }}
+                >
+                  <div class="col">
+                    <div class="card">
+                      <img
+                        src={book.volumeInfo.imageLinks.smallThumbnail}
+                        alt="book-cover"
+                      ></img>
+                      <div className="card-body">
+                        <h5>{newTitle}</h5>
+                        <h5 className="text-muted">
+                          by {book.volumeInfo.authors[0]}
+                        </h5>
                       </div>
                     </div>
-                  </a>
-                );
-              })}
-        </div>
+                  </div>
+                </a>
+              );
+            })}
+      </div>
       <Modal.Body className="hor-ver-2">
         <Form
           onSubmit={(event) => {
@@ -98,9 +95,8 @@ function BookForm(props) {
               type="text"
               placeholder="Enter title"
             />
-           
+
             <Form.Control
-              
               value={photo}
               name="photo"
               hidden
@@ -153,14 +149,20 @@ function BookForm(props) {
           <Form.Group>
             <Form.Label>Switch Mode</Form.Label>
             <Form.Control
+              as="select"
+              placeholder="Select your Switch Mode"
               onChange={(e) => setSwitchMode(e.target.value)}
-              value={switchMode}
               name="switchMode"
               required
               type="text"
-              placeholder="Enter Switch Mode"
-            />
+            >
+  
+              <option value="switch">Switch</option>
+              <option value="gift">Gift</option>
+              <option value="temporary-switch">Temporary Switch</option>
+            </Form.Control>
           </Form.Group>
+
           <Button variant="primary" size="lg" block type="submit">
             Save Book to Library
           </Button>

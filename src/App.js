@@ -12,6 +12,8 @@ import LogInForm from "./components/LogInForm";
 import axios from "axios";
 import MessageList from "./components/MessageList";
 import MessagesDetails from "./components/MessagesDetails"
+import Boundry from './components/ErrorBoundry';
+import ErrorBoundry from './components/ErrorBoundry';
 
 class App extends Component {
   state = {
@@ -44,7 +46,9 @@ class App extends Component {
             }
           );
         })
-        .catch(() => {});
+        .catch(() => {
+          
+        });
     }
 
   handlePhoto=(event)=>{
@@ -102,7 +106,7 @@ class App extends Component {
         );
       })
       .catch((err) => {
-        console.log(err);
+        throw new Error('Erdem Changed the Code!');
       });
   };
 
@@ -293,7 +297,7 @@ class App extends Component {
             exact
             path="/"
             render={(routeProps) => {
-              return <BookList {...routeProps} />;
+              return <ErrorBoundry><BookList {...routeProps} /></ErrorBoundry>;
             }}
           />
           <Route
@@ -307,7 +311,7 @@ class App extends Component {
             path="/signup"
             render={(routeProps) => {
               return (
-                <SignUpForm handleSubmit={this.handleSignUp} {...routeProps} />
+                <ErrorBoundry><SignUpForm handleSubmit={this.handleSignUp} {...routeProps} /></ErrorBoundry>
               );
             }}
           />

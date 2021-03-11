@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 
+
 function SignUpForm(props) {
   const [locations, setLocations] = useState([]);
   const [name, setName] = useState("");
@@ -28,6 +29,7 @@ function SignUpForm(props) {
   }, []);
 
   return (
+ 
     <Form className="body-width" onSubmit={props.handleSubmit}>
       <Form.Group>
         <Form.Label>Username</Form.Label>
@@ -93,6 +95,7 @@ function SignUpForm(props) {
           onChange={(e) => setLocation(e.target.value)}
               value={location}
         >
+        
           {locations.map((loc, index) => {
             return (
               <option key={index} value={loc._id}>
@@ -107,6 +110,7 @@ function SignUpForm(props) {
         Submit
       </Button>
     </Form>
+
   );
 }
 export default SignUpForm;
