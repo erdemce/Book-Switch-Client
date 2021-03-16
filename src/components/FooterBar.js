@@ -19,15 +19,19 @@ export default class FooterBar extends Component {
                     </div>
                     <div className="row justify-content-center">
                         <p>
+
+                         
                             <img className="my-3 " width="90px" src="/assets/800px-MERN-logo.png" alt="mernlogo"/>
                             <span className="bold-text py-1">IRONHACKERS</span> 
                         </p>      
 
                         <div className="col-md-4 py-1 ">
-                            <h6 className="mb-2 bold-text"><b>Georgina Morales</b></h6><small> georgina@bookswitch.com</small>
+                            <h6 className="mb-2 bold-text"><a target="_blank" href="https://www.linkedin.com/in/georgina-morales-paramo"><b>Georgina
+               Morales</b></a></h6><small> georgina@bookswitch.com</small>
                         </div>
                         <div className="col-md-4 py-1 " >
-                            <h6 className="mb-2 bold-text"><b>Erdem Taskin</b></h6><small>erdem@bookswitch.com</small>
+                            <h6 className="mb-2 bold-text"><a target="_blank" href="https://www.linkedin.com/in/erdem-taskin"><b>Erdem
+               Taskin</b></a></h6><small>erdem@bookswitch.com</small>
                         </div>
                     </div>        
                 </footer>

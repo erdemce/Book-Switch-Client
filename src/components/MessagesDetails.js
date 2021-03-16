@@ -34,8 +34,7 @@ export default class MessagesDetails extends Component {
               messages: response.data,
               book:response.data[0].bookRelated,
               contact:contact
-            },()=>
-              console.log(this.state.book,this.state.contact))
+            })
           })
           .catch(() => {
             console.log("Fetching failed");
@@ -48,7 +47,7 @@ export default class MessagesDetails extends Component {
         event.target.reset()
         let message={
           text,
-          between:[this.state.loggedInUser._id, this.state.contact._id],
+          between:[this.state.loggedInUser, this.state.contact],
           bookRelated:this.state.book
         }
         axios
@@ -56,12 +55,15 @@ export default class MessagesDetails extends Component {
         withCredentials: true,
       })
       .then((response) => {
+        let savedMessage=response.data;
+        savedMessage.between=[this.state.loggedInUser, this.state.contact]
         
         this.setState(
           {
-            messages: [ ...this.state.messages, response.data]
+            messages: [ ...this.state.messages, savedMessage]
           },
           () => {
+          
             this.props.history.push(`/messages/${this.state.contact._id}`);
           }
         );
@@ -116,7 +118,7 @@ export default class MessagesDetails extends Component {
                          let date=message.date;
                          let className=(message.between[1]._id===contact._id)? "div-right" : "div-left"
                          return (
-                           <div className={className}>
+                           <div key={message} className={className}>
                          {message.text}<br></br>
                          <span className="small text-muted">{date}</span>
 

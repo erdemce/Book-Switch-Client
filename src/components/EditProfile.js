@@ -39,8 +39,9 @@ function EditProfile(props) {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={(event)=>{
-          props.onHide();
-          props.handleProfileChange(event)
+         props.handleProfileChange(event)
+           
+  
         }}>
           <Form.Group>
             <Form.Label>Username</Form.Label>
@@ -92,6 +93,7 @@ function EditProfile(props) {
               })}
             </Form.Control>
           </Form.Group>
+          {props.error&&(<h4 className="error">{props.error.message}</h4>)}
           <Button variant="primary" size="lg" type="submit">
             Save Changes
           </Button>

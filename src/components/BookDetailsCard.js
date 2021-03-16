@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Card,  Button, CardDeck, Row, Col} from 'react-bootstrap'
+import { Link } from "react-router-dom";
 import BookForm from './BookForm'
 
 
@@ -7,25 +8,24 @@ export default class BookDetailsCard extends Component {
 
     state={
         showTextArea:false,
-        showEditBookForm:false,
     }
 
   
     onHide=()=>{
  
-        this.setState({showEditBookForm:false,showTextArea:false })
+        this.setState({showTextArea:false })
     }
     render() {
         
 
 
-        const{showEditBookForm, showTextArea}=this.state
-        const { book,user, handleDelete, handleEditBook, handleSendRequest } = this.props;
+        const{showTextArea}=this.state
+        const {showEditBookForm, book,user, handleDelete, handleSendRequest } = this.props;
         let switchMode=book.switchMode[0].toUpperCase()+book.switchMode.slice(1)
 
         return (
             <CardDeck className="body-width">
-                    {showEditBookForm&&<BookForm show={showEditBookForm} onHide={this.onHide} book={book} handleAddorEditBook={handleEditBook}/> }
+                    
                     <Card className="text-center" >
                         <Row className="book-details">
                         <Col>
@@ -56,9 +56,10 @@ export default class BookDetailsCard extends Component {
                         
                         <div>
                         {console.log("user:",user,"book:",book)}
-                        { (user._id===book.owner._id)&&(<img onClick={()=>this.setState({showEditBookForm:true})} style={{cursor: "pointer"}} src='/assets/008-edition.png' alt="editbook-icon" ></img>)}
-                        { (user._id===book.owner._id)&&(<img onClick={handleDelete} src='/assets/032-delete-4.png' style={{cursor: "pointer"}} alt="deletebook-icon"></img>)}
-                        { (user._id!==book.owner._id)&&(<Button onClick={()=>this.setState({showTextArea:true})}>Request Switch</Button>)} 
+                        { user&&(user._id===book.owner._id)&&(<img onClick={()=>showEditBookForm(book)} style={{cursor: "pointer"}} src='/assets/008-edition.png' alt="editbook-icon" ></img>)}
+                        { user&&(user._id===book.owner._id)&&(<img onClick={handleDelete} src='/assets/032-delete-4.png' style={{cursor: "pointer"}} alt="deletebook-icon"></img>)}
+                        { user&&(user._id!==book.owner._id)&&(<Button onClick={()=>this.setState({showTextArea:true})}>Request Switch</Button>)} 
+                        { !user&&(<Button><Link to="/signup">Please Sign up to send a Request</Link></Button>)} 
                         </div>
 
                         

@@ -32,7 +32,7 @@ function SignUpForm(props) {
  
     <Form className="body-width" onSubmit={props.handleSubmit}>
       <Form.Group>
-        <Form.Label>Username</Form.Label>
+        <Form.Label>Username &#42;</Form.Label>
         <Form.Control
           required
           name="username"
@@ -60,7 +60,7 @@ function SignUpForm(props) {
         />
       </Form.Group>
       <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>Email address &#42;</Form.Label>
         <Form.Control
           required
           name="email"
@@ -74,7 +74,8 @@ function SignUpForm(props) {
         </Form.Text>
       </Form.Group>
       <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Password &#42;</Form.Label>
+        
         <Form.Control
           required
           name="password"
@@ -83,10 +84,12 @@ function SignUpForm(props) {
           onChange={(e) => setPassword(e.target.value)}
               value={password}
         />
+        <Form.Text className="text-muted">
+        Password should be at least 8 characters, include at least one uppercase and one number
+        </Form.Text>
       </Form.Group>
-
       <Form.Group>
-        <Form.Label>City</Form.Label>
+        <Form.Label>City &#42;</Form.Label>
 
         <Form.Control
           as="select"
@@ -105,6 +108,7 @@ function SignUpForm(props) {
           })}
         </Form.Control>
       </Form.Group>
+      {props.error&&(<h4 className="error">{props.error.message}</h4>)}
 
       <Button variant="primary" size="lg" block type="submit">
         Submit

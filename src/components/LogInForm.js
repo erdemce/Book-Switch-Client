@@ -31,6 +31,7 @@ function LogInForm(props) {
               value={password}
         />
       </Form.Group>
+      {props.error&&(<h4 className="error">{props.error.message}</h4>)}
         <Button variant="primary" size="lg" block type="submit">
           Submit
         </Button>

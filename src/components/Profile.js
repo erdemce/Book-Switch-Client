@@ -1,59 +1,20 @@
 import config from '../config'
 import React, { Component } from "react";
 import { Card, Spinner } from "react-bootstrap";
-import axios from "axios";
-import EditProfile from "./EditProfile";
 import BookDetailsCard from "./BookDetailsCard";
-import BookForm from "./BookForm";
-import UploadPhotoForm from "./UploadPhotoForm";
 
 export default class Profile extends Component {
-  state = {
-    addFormShow: false,
-    profileFormShow: false,
-    showUploadPhotoForm: false
-  };
-
-
-  onHide = () => {
-    this.setState({ addFormShow: false });
-  };
-
-  handleProfileChange = (event) => {
-      event.preventDefault();
-
-      let username = event.target.username.value
-      let name = event.target.name.value
-      let lastName = event.target.lastName.value
-      let location = event.target.location.value 
-      let _id=this.props.user._id
-      let updatedUser = {username, name, lastName, location,_id}
-      
-
-      axios
-      .post(`${config.API_URL}/api/auth/user`, updatedUser, {
-        withCredentials: true,
-      })
-      .then((response) => {    
-          this.props.history.push(`/profile`);
-      })     
-      .catch((err) => {
-        console.log("Something went wrong", err);
-      });
-
-    }
-
  
   render() {
-    const { addFormShow, profileFormShow, showUploadPhotoForm } = this.state;
+   
     const {
       userLibrary,
       user,
       handleDelete,
-      handleEditBook,
-      handleProfileChange,
-      handleAddBook,
-      handlePhoto
+      showEditBookForm,
+      showAddBookForm,
+      showProfileForm,
+      showPhotoForm
     } = this.props;
 
     if (!user) {
@@ -68,32 +29,18 @@ export default class Profile extends Component {
 
     return (
       <div className="body-width" >
-        {addFormShow && (
-          <BookForm
-            show={addFormShow}
-            onHide={this.onHide}
-            book={{}}
-            handleAddorEditBook={handleAddBook}
-          />
-        )}
-        {showUploadPhotoForm && (
-          <UploadPhotoForm
-            show={showUploadPhotoForm}
-            onHide={() => this.setState({ showUploadPhotoForm: false })}
-            handlePhoto={handlePhoto}
-          />
-        )}
+        
         <h2>Hello {user.name}! <br></br>Welcome to your profile</h2>
 
         <Card className="text-center" style={{ width: "18rem", margin:"1em auto" }}>
           <Card.Img variant="top" src={user.photo} roundedCircle />
           <div>
-            <img src="/assets/003-camera.png" style={{cursor: "pointer"}} onClick={() => this.setState({ showUploadPhotoForm: true })} alt="uploadphoto-icon"></img>
+            <img src="/assets/003-camera.png" style={{cursor: "pointer"}} onClick={showPhotoForm} alt="uploadphoto-icon"></img>
             <img
               style = {{cursor:"pointer"}}
               src="/assets/008-edition.png"
               alt="editprofile-icon"
-              onClick={() => this.setState({ profileFormShow: true })}
+              onClick={showProfileForm}
             ></img>
           </div>
           <Card.Body>
@@ -112,14 +59,7 @@ export default class Profile extends Component {
             {/* <small className="text-muted">Last switch 3 weeks ago</small> */}
           </Card.Footer>
 
-          {profileFormShow && (
-            <EditProfile
-              show={profileFormShow}
-              user={user}
-              handleProfileChange={handleProfileChange}
-              onHide={() => this.setState({ profileFormShow: false })}
-            />
-          )}
+
         </Card>
         <div>
           <img src="/assets/library.png" alt="libraryicon"></img>
@@ -130,7 +70,7 @@ export default class Profile extends Component {
           style={{cursor: "pointer"}}
           src="/assets/026-library-2.png"
           alt="addbook-icon"
-          onClick={() => this.setState({ addFormShow: true })}
+          onClick={()=>showAddBookForm({})}
         ></img>
 
         {userLibrary.map((book) => {
@@ -140,9 +80,7 @@ export default class Profile extends Component {
               handleDelete={(event) => {
                 handleDelete(book._id, event);
               }}
-              handleEditBook={(event) => {
-                handleEditBook(book._id, event);
-              }}
+              showEditBookForm={showEditBookForm}
               user={user}
               book={book}
             />

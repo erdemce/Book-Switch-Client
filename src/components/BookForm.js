@@ -4,7 +4,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 
 function BookForm(props) {
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState(props.book.photo);
   const [title, setTitle] = useState(props.book.title);
   const [author, setAuthor] = useState(props.book.author);
   const [description, setDescription] = useState(props.book.description);
@@ -12,6 +12,7 @@ function BookForm(props) {
   const [category, setCategory] = useState(props.book.category);
   const [switchMode, setSwitchMode] = useState(props.book.switchMode);
   const [fromGoogleList, setFromGooglelist] = useState([]);
+  const langs=["Chinese","Dutch","English", "French", "German","Italian","Japanese", "Portuguese","Russian","Spanish","Turkish","Other"]
 
   useEffect(() => {
     if (title || author) {
@@ -80,10 +81,11 @@ function BookForm(props) {
       </div>
       <Modal.Body className="hor-ver-2">
         <Form
-          onSubmit={(event) => {
-            props.onHide();
-            props.handleAddorEditBook(event);
-          }}
+          onSubmit={(event) => 
+            props.handleAddorEditBook(event)
+             
+          
+          }
         >
           <Form.Group>
             <Form.Label>Title</Form.Label>
@@ -124,16 +126,30 @@ function BookForm(props) {
               type="text"
               placeholder="Enter description"
             />
-          </Form.Group>
+
           <Form.Group>
-            <Form.Label>Language</Form.Label>
+          <Form.Label>Language</Form.Label>
             <Form.Control
+              as="select"
+              placeholder="Select Language of the Book"
               onChange={(e) => setLanguage(e.target.value)}
-              value={language}
               name="language"
+              required
               type="text"
-              placeholder="Enter language"
-            />
+            >
+            {langs.map(item=>{
+              return (
+                <option value={item}>{item}</option>
+              )
+            })
+                       
+            }
+            </Form.Control>
+          </Form.Group>
+
+
+
+
           </Form.Group>
           <Form.Group>
             <Form.Label>Category</Form.Label>
@@ -162,6 +178,7 @@ function BookForm(props) {
               <option value="temporary-switch">Temporary Switch</option>
             </Form.Control>
           </Form.Group>
+          {props.error&&(<h4 className="error">{props.error.message}</h4>)}
 
           <Button variant="primary" size="lg" block type="submit">
             Save Book to Library

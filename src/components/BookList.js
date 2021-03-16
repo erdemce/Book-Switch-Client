@@ -1,29 +1,25 @@
-import config from '../config'
+import config from "../config";
 import React, { Component } from "react";
-import { Button,Spinner } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import BookCard from "./BookCard";
 import SearchBar from "./SearchBar";
 import axios from "axios";
+import { GET_BOOKS } from "../actions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getPageLoading, getPageError, getBooks } from "../reducers/selectors";
 
-export default class BookList extends Component {
+class BookList extends Component {
   state = {
-    books: [],
-    filtered: [],
+    filtered: this.props.books,
     mode: "all",
-    searchText: ""  };
+    searchText: "",
+  };
 
   componentDidMount() {
-   
-  
-    axios
-      .get(`${config.API_URL}/api/book`)
-      .then((response) => {
-        this.setState({ books: response.data, filtered: response.data });
-      })
-      .catch(() => {
-        console.log("Fetching failed");
-      });
+this.props.onGetBooks()
+
   }
 
   handleSwitchMode = (mode) => {
@@ -47,7 +43,7 @@ export default class BookList extends Component {
 
   updateFilter = () => {
     const { searchText, mode, books } = this.state;
-    let filteredBooks = books.filter(
+    let filteredBooks = this.props.books.filter(
       (book) =>
         (book.title.toLowerCase().includes(searchText) ||
           book.author.toLowerCase().includes(searchText)) &&
@@ -58,15 +54,17 @@ export default class BookList extends Component {
     });
   };
   render() {
-    const { books, filtered } = this.state;
-
-    if(books.length===0 ){
-      return <>
-       <Spinner animation="border" variant="secondary" />
-            <Spinner animation="border" variant="secondary" />
-            <Spinner animation="border" variant="secondary" />
-  
-    </>
+    const { books, loading, error } = this.props;
+    console.log("books", books, "loading", loading, "error", error);
+    const { filtered } = this.state;
+    if (books.length === 0) {
+      return (
+        <>
+          <Spinner animation="border" variant="secondary" />
+          <Spinner animation="border" variant="secondary" />
+          <Spinner animation="border" variant="secondary" />
+        </>
+      );
     }
 
     return (
@@ -113,3 +111,21 @@ export default class BookList extends Component {
     );
   }
 }
+// export default BookList;
+BookList.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  onGetBooks: PropTypes.func.isRequired,
+};
+
+export const mapStateToProps = (state, props) => ({
+  loading: getPageLoading(state),
+  error: getPageError(state),
+  books: getBooks(state) || [],
+});
+
+export const mapDispatchToProps = (dispatch) => ({
+  onGetBooks: () => dispatch(GET_BOOKS()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookList);
