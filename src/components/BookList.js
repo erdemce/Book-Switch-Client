@@ -5,20 +5,33 @@ import { Link } from "react-router-dom";
 import BookCard from "./BookCard";
 import SearchBar from "./SearchBar";
 import axios from "axios";
-import { GET_BOOKS } from "../actions";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { getPageLoading, getPageError, getBooks } from "../reducers/selectors";
+// import { GET_BOOKS } from "../actions";
+// import { connect } from "react-redux";
+// import PropTypes from "prop-types";
+// import { getPageLoading, getPageError, getBooks } from "../reducers/selectors";
 
 class BookList extends Component {
   state = {
-    filtered: this.props.books,
+    filtered: [],
     mode: "all",
     searchText: "",
+    books:[]
   };
 
   componentDidMount() {
-this.props.onGetBooks()
+//this.props.onGetBooks()
+
+   
+  
+  axios
+    .get(`${config.API_URL}/api/book`)
+    .then((response) => {
+      this.setState({ books: response.data, filtered: response.data });
+    })
+    .catch(() => {
+      console.log("Fetching failed");
+    });
+
 
   }
 
@@ -43,7 +56,7 @@ this.props.onGetBooks()
 
   updateFilter = () => {
     const { searchText, mode, books } = this.state;
-    let filteredBooks = this.props.books.filter(
+    let filteredBooks = this.state.books.filter(
       (book) =>
         (book.title.toLowerCase().includes(searchText) ||
           book.author.toLowerCase().includes(searchText)) &&
@@ -54,9 +67,9 @@ this.props.onGetBooks()
     });
   };
   render() {
-    const { books, loading, error } = this.props;
+    // const {  books, loading, error } = this.props;
     console.log("books", books, "loading", loading, "error", error);
-    const { filtered } = this.state;
+    const { filtered ,books} = this.state;
     if (books.length === 0) {
       return (
         <>
@@ -111,21 +124,21 @@ this.props.onGetBooks()
     );
   }
 }
-// export default BookList;
-BookList.propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
-  onGetBooks: PropTypes.func.isRequired,
-};
+export default BookList;
+// BookList.propTypes = {
+//   loading: PropTypes.bool,
+//   error: PropTypes.bool,
+//   onGetBooks: PropTypes.func.isRequired,
+// };
 
-export const mapStateToProps = (state, props) => ({
-  loading: getPageLoading(state),
-  error: getPageError(state),
-  books: getBooks(state) || [],
-});
+// export const mapStateToProps = (state, props) => ({
+//   loading: getPageLoading(state),
+//   error: getPageError(state),
+//   books: getBooks(state) || [],
+// });
 
-export const mapDispatchToProps = (dispatch) => ({
-  onGetBooks: () => dispatch(GET_BOOKS()),
-});
+// export const mapDispatchToProps = (dispatch) => ({
+//   onGetBooks: () => dispatch(GET_BOOKS()),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookList);
+// export default connect(mapStateToProps, mapDispatchToProps)(BookList);
