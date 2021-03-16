@@ -203,6 +203,7 @@ class App extends Component {
       .then((response) => {
         let updatedBook = response.data;
         let updatedLibrary = this.state.userLibrary.map((book) => {
+          this.setState({error:null})
           if (book._id === updatedBook._id) {
             updatedBook.owner = book.owner;
             return updatedBook;
@@ -253,6 +254,7 @@ class App extends Component {
         withCredentials: true,
       })
       .then((response) => {
+        this.setState({error:null})
         let responseBook = response.data;
 
         this.setState(
@@ -308,6 +310,7 @@ class App extends Component {
         this.setState(
           {
             loggedInUser: response.data,
+            error:null
           },
           () => {
             this.setState({ profileFormShow: false }, () =>
