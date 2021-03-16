@@ -6,7 +6,7 @@ function* getBooks() {
 
   try {
     const response = yield call(getData,{url:"/book"});
-    console.log("merhaba",response);
+  
 
     yield delay(500);
     yield put(GET_BOOKS_SUCCESS(response));

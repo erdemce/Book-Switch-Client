@@ -68,7 +68,7 @@ class BookList extends Component {
   };
   render() {
     // const {  books, loading, error } = this.props;
-    console.log("books", books, "loading", loading, "error", error);
+   
     const { filtered ,books} = this.state;
     if (books.length === 0) {
       return (
